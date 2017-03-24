@@ -152,6 +152,12 @@ module.exports = function(grunt) {
 					src: 'images/*',
 				    dest: 'dist'
 
+			    }, {
+			    	src: 'favicon.ico',
+			    	dest: 'dist/' // 必须加 / ，不然会报错
+			    }, {
+			    	src: 'prod.html',
+			    	dest: 'dist/index.html'
 			    }]
 		    }
 	    },
