@@ -2,9 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>KityMinder Editor - Powered By FEX</title>
+	<title>日事清-思维导图</title>
 
-	<link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+	<link href="//res-front-cdn.timetask.cn/common/img/web-icon/icon.png" type="image/x-icon" rel="shortcut icon">
 	<!-- build:remove dist -->
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
 	<!-- bower:css -->
@@ -44,7 +44,7 @@
 		}
 		div.minder-editor-container {
 			position: absolute;
-			top: 40px;
+			top: 0;
 			bottom: 0;
 			left: 0;
 			right: 0;
@@ -52,7 +52,6 @@
 	</style>
 </head>
 <body ng-app="kityminderDemo" ng-controller="MainController">
-<h1 class="editor-title">KityMinder Editor - Powered By FEX</h1>
 <kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
 </body>
 
@@ -68,7 +67,11 @@
 <script src="kityminder.editor.min.js"></script>
 <!-- /build -->
 
-<!-- build:section templates.devScripts -->
+<!-- build:remove dist -->
+<script src="ui/kityminder.app.js"></script>
+<!-- build:process -->
+<%= scriptTemplate %>
+<!-- /build -->
 <!-- /build -->
 
 <script>

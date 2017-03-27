@@ -29,6 +29,13 @@ module.exports = function(grunt) {
 
     var expose = '\nuse(\'expose-editor\');\n';
 
+    var scriptTemplate = '';
+
+    var scriptList = grunt.file.expand(['ui/**/*.js', '!ui/templates.js', '!ui/kityminder.app.js']);
+    scriptList.forEach(function (item) {
+    	scriptTemplate += '<script src="' + item + '"></script>\n';
+    });
+
     // Project configuration.
     grunt.initConfig({
 
@@ -226,10 +233,8 @@ module.exports = function(grunt) {
 	    		src: 'entry.html',
 	    		dest: 'dist/index.html',
 	    		options: {
-	    			sections: {
-	    				templates: {
-	    					'devScripts': 'templates/dist-scripts.html'
-	    				}
+	    			data: {
+	    				scriptTemplate: ''
 	    			}
 	    		}
 	    	},
@@ -237,10 +242,8 @@ module.exports = function(grunt) {
 	    		src: 'entry.html',
 	    		dest: 'index.html',
 	    		options: {
-	    			sections: {
-	    				templates: {
-	    					'devScripts': 'templates/dev-scripts.html'
-	    				}
+	    			data: {
+	    				scriptTemplate: scriptTemplate
 	    			}
 	    		}
 	    	}
