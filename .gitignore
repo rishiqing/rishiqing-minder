@@ -5,3 +5,4 @@ node_modules/
 .tmp/
 upload/
 dist
+index.html

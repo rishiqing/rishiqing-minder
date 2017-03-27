@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>KityMinder Editor - Powered By FEX</title>
+
+	<link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+	<!-- build:remove dist -->
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+	<!-- bower:css -->
+	<!-- endbower -->
+	<link rel="stylesheet" href="../bower_components/color-picker/dist/color-picker.min.css" />
+	<!-- /build -->
+
+	<!-- build:remove dev -->
+	<link rel="stylesheet" href="vender.min.css">
+	<!-- /build -->
+
+
+	<!-- build:remove dev -->
+	<link rel="stylesheet" href="kityminder.editor.min.css">
+	<!-- /build -->
+	<!-- build:remove dist -->
+	<link rel="stylesheet" href="dist/kityminder.editor.css">
+	<!-- /build -->
+
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			overflow: hidden;
+		}
+		h1.editor-title {
+			background: #393F4F;
+			color: white;
+			margin: 0;
+			height: 40px;
+			font-size: 14px;
+			line-height: 40px;
+			font-family: 'Hiragino Sans GB', 'Arial', 'Microsoft Yahei';
+			font-weight: normal;
+			padding: 0 20px;
+		}
+		div.minder-editor-container {
+			position: absolute;
+			top: 40px;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	</style>
+</head>
+<body ng-app="kityminderDemo" ng-controller="MainController">
+<h1 class="editor-title">KityMinder Editor - Powered By FEX</h1>
+<kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
+</body>
+
+<!-- build:remove dist -->
+<!-- bower:js -->
+<!-- endbower -->
+<script src="bower_components/color-picker/dist/color-picker.min.js"></script>
+<script src="bower_components/seajs/dist/sea.js"></script>
+<!-- /build -->
+
+<!-- build:remove dev -->
+<script src="vender.min.js"></script>
+<script src="kityminder.editor.min.js"></script>
+<!-- /build -->
+
+<!-- build:section templates.devScripts -->
+<!-- /build -->
+
+<script>
+	angular.module('kityminderDemo', ['kityminderEditor'])
+			.config(function (configProvider) {
+				configProvider.set('imageUpload', '../server/imageUpload.php');
+			})
+			.controller('MainController', function($scope) {
+				$scope.initEditor = function(editor, minder) {
+					// window.editor = editor;
+					// window.minder = minder;
+				};
+			});
+</script>
+
+</html>

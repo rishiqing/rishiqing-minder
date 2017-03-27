@@ -40,9 +40,7 @@ module.exports = function(grunt) {
         clean: {
             last: [
 	            '.tmp',
-	            'dist/*.js',
-	            'dist/*.css',
-	            'dist/*.css.map'
+	            'dist/'
             ],
 	        clstmp: ['.tmp']
         },
@@ -68,7 +66,8 @@ module.exports = function(grunt) {
             closure: {
                 options: {
                     banner: banner + '(function () {\n',
-                    footer: expose + '})();'
+                    footer: expose + '})();',
+                    sourceMap: false
                 },
                 files: {
 	                'dist/kityminder.editor.js': [
@@ -81,9 +80,52 @@ module.exports = function(grunt) {
 		                '.tmp/scripts/directive/**/*.js'
 	                ]
                 }
+            },
+            venderCss: {
+            	options: {
+            		sourceMap: false
+            	},
+            	files: {
+            		'dist/vender.css': [
+        				'bower_components/bootstrap/dist/css/bootstrap.css',
+        				'bower_components/codemirror/lib/codemirror.css',
+        				'bower_components/hotbox/hotbox.css',
+        				'bower_components/kityminder-core/dist/kityminder.core.css',
+        				'bower_components/color-picker/dist/color-picker.min.css'
+        			]
+            	}
+            },
+            venderJs: {
+            	options: {
+                    // banner: banner + '(function () {\n',
+                    // footer: expose + '})();',
+                    sourceMap: false
+                },
+                files: {
+	                'dist/vender.js': [
+		                'bower_components/jquery/dist/jquery.js',
+		                'bower_components/bootstrap/dist/js/bootstrap.js',
+		                'bower_components/angular/angular.js',
+		                'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+		                'bower_components/codemirror/lib/codemirror.js',
+                        'bower_components/codemirror/mode/xml/xml.js',
+		                'bower_components/codemirror/mode/javascript/javascript.js',
+		                'bower_components/codemirror/mode/css/css.js',
+		                'bower_components/codemirror/mode/htmlmixed/htmlmixed.js',
+		                'bower_components/codemirror/mode/markdown/markdown.js',
+		                'bower_components/codemirror/addon/mode/overlay.js',
+		                'bower_components/codemirror/mode/gfm/gfm.js',
+		                'bower_components/angular-ui-codemirror/ui-codemirror.js',
+		                'bower_components/marked/lib/marked.js',
+		                'bower_components/kity/dist/kity.min.js',
+		                'bower_components/hotbox/hotbox.js',
+		                'bower_components/json-diff/json-diff.js',
+		                'bower_components/kityminder-core/dist/kityminder.core.min.js',
+		                'bower_components/color-picker/dist/color-picker.min.js'
+	                ]
+                }
             }
         },
-
         uglify: {
             options: {
                 banner: banner
@@ -92,6 +134,9 @@ module.exports = function(grunt) {
                 files: [{
 	                src: 'dist/kityminder.editor.js',
 	                dest: 'dist/kityminder.editor.min.js'
+                }, {
+                	src: 'dist/vender.js',
+	                dest: 'dist/vender.min.js'
                 }]
             }
         },
@@ -113,7 +158,8 @@ module.exports = function(grunt) {
 	    cssmin: {
 	        dist: {
 	            files: {
-	                'dist/kityminder.editor.min.css': 'dist/kityminder.editor.css'
+	                'dist/kityminder.editor.min.css': 'dist/kityminder.editor.css',
+	                'dist/vender.min.css': 'dist/vender.css'
 	         }
 	       }
 	    },
@@ -139,7 +185,8 @@ module.exports = function(grunt) {
 			    devDependencies: true
 		    },
 		    dist: {
-			    src: ['dist/index.html']
+			    src: ['dist/index.html'],
+			    exclude: ['/seajs/']
 		    }
 	    },
 
@@ -155,9 +202,6 @@ module.exports = function(grunt) {
 			    }, {
 			    	src: 'favicon.ico',
 			    	dest: 'dist/' // 必须加 / ，不然会报错
-			    }, {
-			    	src: 'prod.html',
-			    	dest: 'dist/index.html'
 			    }]
 		    }
 	    },
@@ -176,17 +220,41 @@ module.exports = function(grunt) {
 				    dest: '.tmp/scripts/'
 			    }]
 		    }
+	    },
+	    htmlbuild: {
+	    	dist: {
+	    		src: 'entry.html',
+	    		dest: 'dist/index.html',
+	    		options: {
+	    			sections: {
+	    				templates: {
+	    					'devScripts': 'templates/dist-scripts.html'
+	    				}
+	    			}
+	    		}
+	    	},
+	    	dev: {
+	    		src: 'entry.html',
+	    		dest: 'index.html',
+	    		options: {
+	    			sections: {
+	    				templates: {
+	    					'devScripts': 'templates/dev-scripts.html'
+	    				}
+	    			}
+	    		}
+	    	}
 	    }
-
-
     });
 
     // Build task(s).
 	grunt.registerTask('build', ['clean:last',
-		//'wiredep:dist',
-        'ngtemplates', 'dependence', 'ngAnnotate', 'concat', 'uglify', 'less', 'cssmin', 'copy', 'clean:clstmp']);
+		'htmlbuild:dist',
+		'wiredep:dist',
+        'ngtemplates', 'dependence', 'ngAnnotate', 'concat', 'uglify', 'less', 'cssmin', 'copy:dist', 'clean:clstmp']);
 
 	grunt.registerTask('dev', ['clean:last',
-        //'wiredep:dev',
-        'ngtemplates', 'dependence', 'ngAnnotate', 'concat', 'uglify', 'less', 'cssmin', 'copy', 'clean:clstmp']);
+		'htmlbuild:dev',
+        'wiredep:dev',
+        'ngtemplates', 'dependence', 'ngAnnotate', 'concat:closure', 'less', 'copy:dist', 'clean:clstmp']);
 };

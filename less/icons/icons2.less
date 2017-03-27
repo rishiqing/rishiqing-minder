@@ -1,0 +1,68 @@
+[class^="icons2-"], [class*=" icons2-"] {
+    background-image: url(images/icons2.png);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    display: block;
+}
+
+.stitches-icons2(@x: 0, @y: 0, @width: 0, @height: 0) {
+    background-position: @x / 2 @y / 2;
+    width: @width / 2;
+    height: @height / 2;
+}
+
+.icons2-add_child {
+    .stitches-icons2(0, 0, 40px, 40px);
+}
+
+.icons2-add_father {
+    .stitches-icons2(-40px, 0, 40px, 40px);
+}
+
+.icons2-add_relation {
+    .stitches-icons2(-80px, 0, 40px, 40px);
+}
+
+.icons2-add_sibling {
+    .stitches-icons2(0, -40px, 40px, 40px);
+}
+
+.icons2-add_sign {
+    .stitches-icons2(-40px, -40px, 40px, 40px);
+}
+
+.icons2-font_bold {
+    .stitches-icons2(-80px, -40px, 40px, 40px);
+}
+
+.icons2-font_color {
+    .stitches-icons2(0, -80px, 40px, 40px);
+}
+
+.icons2-font_italic {
+    .stitches-icons2(-40px, -80px, 40px, 40px);
+}
+
+.icons2-image {
+    .stitches-icons2(-80px, -80px, 40px, 40px);
+}
+
+.icons2-link {
+    .stitches-icons2(-120px, 0, 40px, 40px);
+}
+
+.icons2-pallet {
+    .stitches-icons2(-120px, -40px, 40px, 40px);
+}
+
+.icons2-redo {
+    .stitches-icons2(-120px, -80px, 40px, 40px);
+}
+
+.icons2-remark {
+    .stitches-icons2(0, -120px, 40px, 40px);
+}
+
+.icons2-revoke {
+    .stitches-icons2(-40px, -120px, 40px, 40px);
+}
