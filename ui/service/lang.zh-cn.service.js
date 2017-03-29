@@ -309,6 +309,7 @@ angular.module('kityminderEditor')
 					'pastestyle': '粘贴样式',
 					'appendsiblingnode': '同级主题',
 					'appendchildnode': '下级主题',
+					'add-relation': '建立关联',
 					'arrangeup': '前调',
 					'arrangedown': '后调',
 					'editnode': '编辑',
@@ -329,6 +330,9 @@ angular.module('kityminderEditor')
 					'link': '链接',
 					'image': '图片',
 					'note': '备注',
+					'sign': '标记',
+					'pallet': '调色盘',
+					'insertsign': '插入标记',
                     'insertlink': '插入链接',
                     'insertimage': '插入图片',
                     'insertnote': '插入备注',
@@ -367,7 +371,17 @@ angular.module('kityminderEditor')
 					'selectsiblings': '选择兄弟节点',
 					'selectlevel': '选择同级节点',
 					'selectpath': '选择路径',
-					'selecttree': '选择子树'
+					'selecttree': '选择子树',
+					'file': '文件',
+					'file_dropdown': {
+						'new': '新建',
+						'openInFile': '打开文件中的导图',
+						'uploadLocal': '上传本地导图',
+						'save': '保存',
+						'saveAs': '另存为',
+						'exportPNG': '导出PNG图片',
+						'exportFreemind': '导出Freemind格式'
+					}
 				},
 				'popupcolor': {
 					'clearColor': '清空颜色',

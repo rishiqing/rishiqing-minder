@@ -1,0 +1,83 @@
+.toolbar {
+	height: @toolbar-height;
+	border-bottom: 1px solid #ecedee;
+	padding: 15px 0;
+    padding-left: 20px;
+	font-size: 0px;
+	// 垂直分隔线
+	.vertical-divider {
+		vertical-align: middle;
+		width: 0;
+		height: 100%;
+		border-left: 1px solid #DCDCDC;
+		margin: 0 14px;
+		display: inline-block;
+	}
+}
+
+.km-btn-group {
+    display: inline-block;
+    vertical-align: middle;
+    [class^="km-btn-"], [class*=" km-btn-"] {
+        margin-left: 4px;
+        &:first-child {
+            margin-left: 0px;
+        }
+    }
+}
+
+.km-btn-group + .km-btn-group {
+    margin-left: 4px;
+}
+
+[class^="km-btn-"], [class*=" km-btn-"] {
+    display: inline-block;
+    cursor: pointer;
+    
+    font-size: 0px;
+    vertical-align: middle;
+
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        // pointer-events: none;
+    }
+}
+
+.km-btn-item {
+    padding: 3px 5px;
+    background: #FFF;
+	border: 1px solid #DFDFDF;
+	box-shadow: 0 0 1px 0 rgba(0,0,0,0.16);
+	border-radius: 3px;
+    &[disabled] {
+        &:hover, &:active {
+            background-color: #fff;
+        }
+    }
+
+    &:hover {background-color: @button-hover;}
+    &:active {background-color: @button-active;}
+}
+
+.km-btn-primary {
+    padding: 4px 16px;
+    background: #427cc7;
+    border-radius: 2px;
+    opacity: 1;
+    color: #fff;
+    font-size: 14px;
+}
+
+.km-btn-item-second {
+    padding: 3px 5px;
+    background: #FFF;
+    border: 1px solid #DFDFDF;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.16);
+    border-radius: 3px;
+
+    & > * {
+        display: inline-block !important;
+        vertical-align: middle;
+    }
+}

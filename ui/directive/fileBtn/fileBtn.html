@@ -1,0 +1,18 @@
+<div class="km-btn-group dropdown file-btn" is-open="isopen" dropdown>
+    <div class="km-btn-primary dropdown-toggle"
+    	dropdown-toggle
+        ng-class="{'active': isopen}">
+        <span>{{ 'file' | lang:'ui' }}</span>
+    </div>
+    <ul class="dropdown-menu">
+    	<li><a href="javascript:;">{{ 'new' | lang:'ui/file_dropdown' }}</a></li>
+    	<li><a href="javascript:;">{{ 'openInFile' | lang:'ui/file_dropdown' }}</a></li>
+    	<li><a href="javascript:;">{{ 'uploadLocal' | lang:'ui/file_dropdown' }}</a></li>
+    	<li class="divider"></li>
+    	<li><a href="javascript:;">{{ 'save' | lang:'ui/file_dropdown' }}</a></li>
+    	<li><a href="javascript:;">{{ 'saveAs' | lang:'ui/file_dropdown' }}</a></li>
+    	<li class="divider"></li>
+    	<li><a href="javascript:;">{{ 'exportPNG' | lang:'ui/file_dropdown' }}</a></li>
+    	<li><a href="javascript:;">{{ 'exportFreemind' | lang:'ui/file_dropdown' }}</a></li>
+    </ul>
+</div>

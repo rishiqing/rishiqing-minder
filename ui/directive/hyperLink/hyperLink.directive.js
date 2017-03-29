@@ -11,9 +11,7 @@ angular.module('kityminderEditor')
                 var minder = $scope.minder;
 
                 $scope.addHyperlink = function() {
-
                     var link = minder.queryCommandValue('HyperLink');
-
                     var hyperlinkModal = $modal.open({
                         animation: true,
                         templateUrl: 'ui/dialog/hyperlink/hyperlink.tpl.html',

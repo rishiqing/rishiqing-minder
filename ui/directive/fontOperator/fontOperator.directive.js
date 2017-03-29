@@ -77,7 +77,20 @@ angular.module('kityminderEditor')
                     });
 
                     return fontName;
-                }
+                };
+                // 添加字号
+                scope.addAndSubtract = function (step) {
+                    var size = minder.queryCommandValue('fontsize');
+                    if (!size) return;
+                    var result = size + step;
+                    if (step < 0 && size <= scope.fontSizeList[0]) {
+                        result = scope.fontSizeList[0];
+                    }
+                    if (step > 0 && size >= scope.fontSizeList[scope.fontSizeList.length - 1]) {
+                        result = scope.fontSizeList[scope.fontSizeList.length - 1];
+                    }
+                    minder.execCommand('fontsize', result);
+                };
 			}
 		}
 	});

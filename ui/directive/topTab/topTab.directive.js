@@ -8,7 +8,6 @@ angular.module('kityminderEditor')
                editor: '='
            },
            link: function(scope) {
-
                /*
                *
                * 用户选择一个新的选项卡会执行 setCurTab 和 foldTopTab 两个函数

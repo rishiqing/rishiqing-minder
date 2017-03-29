@@ -1,0 +1,128 @@
+.font-operator {
+    // width: 170px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    padding: 0 5px;
+
+    .font-size-list {
+        display: inline-block;
+        border: 1px solid #DFDFDF;
+        box-shadow: 0 0 1px 0 rgba(0,0,0,0.16);
+        border-radius: 3px;
+        padding: 4px 4px;
+        position: relative;
+        vertical-align: middle;
+        .add-and-subtract {
+            width: 8px;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: 0px;
+            .caret + .caret {
+                margin-top: 6px;
+            }
+            &[disabled] {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .font-family-list {
+        display: inline-block;
+        border: 1px solid #eee;
+        padding: 2px 4px;
+    }
+
+}
+
+.current-font-item a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.current-font-family {
+    width: 75px;
+    height: 18px;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+.current-font-size {
+    width: 60px;
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.current-font-item[disabled] {
+    opacity: 0.5;
+}
+
+.font-item {
+    line-height: 1em;
+    text-align: left;
+}
+
+.font-item-selected {
+    background-color: @tool-selected;
+}
+
+.font-bold, .font-italics {
+    display: inline-block;
+    background: url(images/icons.png) no-repeat;
+    cursor: pointer;
+    margin: 0 3px;
+
+
+    &:hover {
+        background-color: @tool-hover;
+    }
+
+    &:active {
+        background-color: @tool-active;
+    }
+
+    &[disabled] {
+        opacity: 0.5;
+    }
+}
+
+.font-bold {
+    background-position: 0 -240px;
+}
+
+.font-italics {
+    background-position: 0 -260px;
+}
+
+.font-bold-selected, .font-italics-selected {
+    background-color: @tool-selected;
+}
+
+.font-color-wrap {
+    width: 40px;
+    position: relative;
+    .font-color-preview {
+        display: inline-block;
+        width: 12px;
+        height: 2px;
+        margin: 0 4px 0;
+        background-color: #000;
+        position: absolute;
+        bottom: 2px;
+        left: 5px;
+    }
+}
+
+.font-color {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+
+    .caret {
+        margin-left: 0px;
+        margin-top: 7px;
+    }
+}
