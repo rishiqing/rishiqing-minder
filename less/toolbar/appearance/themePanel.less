@@ -1,14 +1,6 @@
-.theme-panel {
-    height: 42px;
-    margin: 5px;
-    padding: 0 5px 0 0;
-    border-right: 1px dashed #eee;
-    display: inline-block;
-    vertical-align: middle;
-}
-
 .theme-list {
-    min-width: 162px;
+    font-size: 0px;
+    padding: 0px;
 }
 
 div a.theme-item {
@@ -24,30 +16,13 @@ div a.theme-item {
     color: #000;
 }
 
-.theme-item-selected {
-    width: 100px;
-    padding: 6px 7px;
-    border: 1px solid #fff;
-
-    &:hover {
-        background-color: @tool-hover;
-    }
-
-    .caret {
-        margin-left: 5px;
-    }
-
-    &[disabled] {
-        opacity: 0.5;
-    }
-}
-
 .theme-item-wrap {
     display: inline-block;
-    width: 80px;
+    width: 33.33%;
     height: 40px;
     padding: 5px;
-}
-.theme-item-wrap:hover {
-    background-color: #eff3fa;
+    text-align: center;
+    &:hover, &.theme-item-selected {
+        background-color: #eff3fa;
+    }
 }

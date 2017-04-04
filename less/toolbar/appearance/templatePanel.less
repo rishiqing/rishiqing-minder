@@ -1,20 +1,14 @@
-.temp-panel {
-    margin: 5px 5px 5px 10px;
-    border-right: 1px dashed #eee;
-    display: inline-block;
-    vertical-align: middle;
-}
-
 .temp-list {
-    min-width: 124px;
+    padding: 0;
+    font-size: 0px;
 }
 
 .temp-item-wrap {
-    width: 50px;
+    width: 33.33%;
     height: 40px;
     padding: 0 2px;
-    margin: 5px;
     display: inline-block;
+    text-align: center;
 }
 
 .temp-item {
@@ -49,23 +43,6 @@
     }
 }
 
-.current-temp-item {
-    width: 74px;
-    padding: 0 0 0 5px;
-    border: 1px solid #fff;
-
-    &:hover {
-        background-color: @tool-hover;
-    }
-
-    &[disabled] {
-        opacity: 0.5;
-    }
-
-    .caret {
-        margin-left: 5px;
-    }
-}
 .temp-item-selected {
     background-color: @tool-selected;
 }

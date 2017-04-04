@@ -44,4 +44,9 @@ angular.module('kityminderEditor')
             editor.receiver.selectAll();
         };
 
+        $scope.deleteCurrent = function () {
+            $modalInstance.close({ null: null });
+            editor.receiver.selectAll();
+        }
+
     });

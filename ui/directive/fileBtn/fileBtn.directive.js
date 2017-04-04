@@ -8,7 +8,9 @@ angular.module('kityminderEditor')
 			},
 			replace: true,
 			link: function (scope) {
-
+				scope.openInFile = function () {
+					window.parent.postMessage({ command: 'minder_open_in_file' }, '*');
+				}
 			}
 		};
 	});

@@ -1,8 +1,17 @@
-<div class="km-btn-group" is-open="isopen">
-	<div class="km-btn-item"
+<div class="km-btn-group dropdown r-dropdown pallet-btn" dropdown>
+	<div class="km-btn-item dropdown-toggle"
 		tooltip-placement="bottom"
+        tooltip-append-to-body="true"
+		dropdown-toggle
         tooltip="{{ 'pallet' | lang:'ui' }}"
         ng-class="{'active': isopen}">
         <i class="icons2-pallet"></i>
+    </div>
+    <div class="dropdown-menu r-dropdown-menu">
+        <div class="r-dropdown-header">{{ 'pallet' | lang:'ui' }}</div>
+        <div class="r-dropdown-body">
+            <template-list minder="minder" class="inline-directive"></template-list>
+            <theme-list minder="minder"></theme-list>
+        </div>
     </div>
 </div>

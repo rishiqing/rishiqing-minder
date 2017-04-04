@@ -104,6 +104,11 @@ angular.module('kityminderEditor')
             editor.receiver.selectAll();
         };
 
+        $scope.deleteCurrent = function () {
+            $modalInstance.close({ url: null });
+            editor.receiver.selectAll();
+        }
+
         function getImageData() {
             var key = $scope.data.searchKeyword2;
             var currentTime = new Date();

@@ -25,7 +25,11 @@ angular.module('kityminderEditor')
                     });
 
                     hyperlinkModal.result.then(function(result) {
-                        minder.execCommand('HyperLink', result.url, result.title || '');
+                        if (!result.url) {
+                            minder.execCommand('HyperLink', null);
+                        } else {
+                            minder.execCommand('HyperLink', result.url, result.title || '');
+                        }
                     });
                 }
             }

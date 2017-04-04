@@ -27,7 +27,12 @@ angular.module('kityminderEditor')
                     });
 
                     imageModal.result.then(function(result) {
-                        minder.execCommand('image', result.url, result.title || '');
+                        console.log('imageModal', result);
+                        if (!result.url) {
+                            minder.execCommand('Image', '');
+                        } else {
+                            minder.execCommand('image', result.url, result.title || '');
+                        }
                     });
                 }
             }
