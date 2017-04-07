@@ -81,6 +81,7 @@ module.exports = function(grunt) {
 		                '.tmp/scripts/kityminder.editor.logic.js',
 		                '.tmp/scripts/kityminder.app.annotated.js',
 		                '.tmp/scripts/templates.annotated.js',
+		                '.tmp/scripts/bootstrap/**/*.js',
 		                '.tmp/scripts/service/*.js',
 		                '.tmp/scripts/filter/*.js',
                         '.tmp/scripts/dialog/**/*.js',
