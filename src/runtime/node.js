@@ -9,13 +9,17 @@ define(function(require, exports, module) {
         var main = hotbox.state('main');
 
         var buttons = [
-            '前移:Alt+Up:ArrangeUp',
-            '下级:Tab|Insert:AppendChildNode',
-            '同级:Enter:AppendSiblingNode',
-            '后移:Alt+Down:ArrangeDown',
-            '删除:Delete|Backspace:RemoveNode',
-            '上级:Shift+Tab|Shift+Insert:AppendParentNode'
-            //'全选:Ctrl+A:SelectAll'
+            // '前移:Alt+Up:ArrangeUp',
+            '插入子主题:Tab|Insert:AppendChildNode',
+            '插入同级主题:Enter:AppendSiblingNode',
+            // '后移:Alt+Down:ArrangeDown',
+            
+            '插入父主题:Shift+Tab|Shift+Insert:AppendParentNode',
+            '分隔线::Divider',
+            '复制:Ctrl+C:copy',
+            '剪切:Ctrl+X:cut',
+            '粘贴:Ctrl+V:paste',
+            '删除:Delete|Backspace:RemoveNode'
         ];
 
         var AppendLock = 0;
@@ -26,10 +30,12 @@ define(function(require, exports, module) {
             var key = parts.shift();
             var command = parts.shift();
             main.button({
-                position: 'ring',
+                position: 'bottom',
                 label: label,
                 key: key,
+                command: command,
                 action: function() {
+                    if (command === 'Divider') return;
                     if (command.indexOf('Append') === 0) {
                         AppendLock++;
                         minder.execCommand(command, '分支主题');
@@ -49,41 +55,52 @@ define(function(require, exports, module) {
                 },
                 enable: function() {
                     return minder.queryCommandState(command) != -1;
+                },
+                render (format, option) {
+                    console.log(option);
+                    if (option.command === 'Divider') {
+                        return '<span class="divider"></span>';
+                    } else {
+                        return format('<span class="l">{label}</span> <span class="s">{key}</span>', {
+                            label: option.label,
+                            key: option.key && option.key.split('|')[0]
+                        });
+                    }
                 }
             });
         });
 
-        main.button({
-            position: 'bottom',
-            label: '导入节点',
-            key: 'Alt + V',
-            enable: function() {
-                var selectedNodes = minder.getSelectedNodes();
-                return selectedNodes.length == 1;
-            },
-            action: importNodeData,
-            next: 'idle'
-        });
+        // main.button({
+        //     position: 'bottom',
+        //     label: '导入节点',
+        //     key: 'Alt + V',
+        //     enable: function() {
+        //         var selectedNodes = minder.getSelectedNodes();
+        //         return selectedNodes.length == 1;
+        //     },
+        //     action: importNodeData,
+        //     next: 'idle'
+        // });
 
-        main.button({
-            position: 'bottom',
-            label: '导出节点',
-            key: 'Alt + C',
-            enable: function() {
-                var selectedNodes = minder.getSelectedNodes();
-                return selectedNodes.length == 1;
-            },
-            action: exportNodeData,
-            next: 'idle'
-        });
+        // main.button({
+        //     position: 'bottom',
+        //     label: '导出节点',
+        //     key: 'Alt + C',
+        //     enable: function() {
+        //         var selectedNodes = minder.getSelectedNodes();
+        //         return selectedNodes.length == 1;
+        //     },
+        //     action: exportNodeData,
+        //     next: 'idle'
+        // });
 
-        function importNodeData() {
-            minder.fire('importNodeData');
-        }
+        // function importNodeData() {
+        //     minder.fire('importNodeData');
+        // }
 
-        function exportNodeData() {
-            minder.fire('exportNodeData');
-        }
+        // function exportNodeData() {
+        //     minder.fire('exportNodeData');
+        // }
 
         //main.button({
         //    position: 'ring',

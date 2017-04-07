@@ -7,3 +7,4 @@ upload/
 dist
 index.html
 *.log
+minder-native-support/archive/src/tmp

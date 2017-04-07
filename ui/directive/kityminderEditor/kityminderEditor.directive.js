@@ -31,13 +31,20 @@ angular.module('kityminderEditor')
 
 						var editor = window.editor = new Editor($minderEditor);
 
-						if (window.localStorage.__dev_minder_content) {
-							editor.minder.importJson(JSON.parse(window.localStorage.__dev_minder_content));
+						if (!window.parent.I_AM_MINDER_FATHER) {
+							if (window.localStorage.__dev_minder_content) {
+								editor.minder.importJson(JSON.parse(window.localStorage.__dev_minder_content));
+							}
+
+							editor.minder.on('contentchange', function() {
+								window.localStorage.__dev_minder_content = JSON.stringify(editor.minder.exportJson());
+							});
 						}
 
-						editor.minder.on('contentchange', function() {
-							window.localStorage.__dev_minder_content = JSON.stringify(editor.minder.exportJson());
-						});
+						window.editor.postMessage.onImportJson(function (data) {
+							editor.minder.importJson(data);
+						})
+						
 
 						window.minder = window.km = editor.minder;
 
@@ -48,6 +55,7 @@ angular.module('kityminderEditor')
                         //scope.minder.setDefaultOptions(scope.config);
 						scope.$apply();
 
+						window.editor.postMessage.sendInitData();
 						onInit(editor, minder);
 					});
 
@@ -59,13 +67,18 @@ angular.module('kityminderEditor')
 					window.editor = scope.editor = editor;
 					window.minder = scope.minder = editor.minder;
 
+					window.editor.postMessage.onImportJson(function (data) {
+						editor.minder.importJson(data);
+					});
+
                     scope.config = config.get();
 
                     //scope.minder.setDefaultOptions(config.getConfig());
 
+                    window.editor.postMessage.sendInitData();
+
                     onInit(editor, editor.minder);
                 }
-
 			}
 		}
 	}]);

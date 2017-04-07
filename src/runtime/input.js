@@ -24,7 +24,7 @@ define(function(require, exports, module) {
         // setup everything to go
         setupReciverElement();
         setupFsm();
-        setupHotbox();
+        // setupHotbox();
 
         // expose editText()
         this.editText = editText;

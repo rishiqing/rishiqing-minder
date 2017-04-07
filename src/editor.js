@@ -1,5 +1,8 @@
 define(function(require, exports, module) {
 
+    require('./protocol/png');
+    require('./protocol/freemind');
+
     /**
      * 运行时
      */
@@ -34,6 +37,7 @@ define(function(require, exports, module) {
     assemble(require('./runtime/jumping'));
     assemble(require('./runtime/priority'));
     assemble(require('./runtime/progress'));
+    assemble(require('./runtime/postMessage'));
 
 
     return module.exports = KMEditor;

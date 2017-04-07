@@ -1,0 +1,43 @@
+.hotbox {
+	.state {
+		.ring-shape {
+			display: none;
+		}
+		.bottom {
+			margin-left: auto !important;
+			margin-top: -50px !important;
+			background: #FFF;
+			box-shadow: 0 5px 10px 0 rgba(0,0,0,0.18);
+			border-radius: 3px;
+			white-space: normal;
+			width: 220px;
+			.button {
+				box-shadow: none;
+			    display: block;
+			    border-radius: 0px;
+			    margin-left: 0px;
+			    margin-right: 0px;
+			    color: #6b6b6b;
+			    opacity: 0.5;
+			    .s {
+			    	float: right;
+			    }
+			    &.enabled {
+			    	opacity: 1;
+			    	&.selected {
+			    		background: none;
+			    	}
+			    	&:hover {
+			    		background: #fbfbfb;
+			    	}
+			    }
+			    .divider {
+			    	display: block;
+				    border-bottom: 1px solid #ddd;
+				    width: 220px;
+				    margin-left: -15px;
+			    }
+			} 
+		}
+	}
+}

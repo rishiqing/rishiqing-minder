@@ -5,14 +5,19 @@
         <span>{{ 'file' | lang:'ui' }}</span>
     </div>
     <ul class="dropdown-menu">
-    	<li><a href="javascript:;">{{ 'new' | lang:'ui/file_dropdown' }}</a></li>
+    	<li ng-click="new()"><a href="javascript:;">{{ 'new' | lang:'ui/file_dropdown' }}</a></li>
     	<li ng-click="openInFile()"><a href="javascript:;">{{ 'openInFile' | lang:'ui/file_dropdown' }}</a></li>
-    	<li><a href="javascript:;">{{ 'uploadLocal' | lang:'ui/file_dropdown' }}</a></li>
+    	<li>
+            <a for="upload-km" href="javascript:;">
+                {{ 'uploadLocal' | lang:'ui/file_dropdown' }}
+                <input type="file" id="upload-km" name="upload-km" class="upload-km" accept=".km" onchange="angular.element(this).scope().uploadImage()">
+            </a>
+        </li>
     	<li class="divider"></li>
-    	<li><a href="javascript:;">{{ 'save' | lang:'ui/file_dropdown' }}</a></li>
-    	<li><a href="javascript:;">{{ 'saveAs' | lang:'ui/file_dropdown' }}</a></li>
+    	<li ng-click="save()"><a href="javascript:;">{{ 'save' | lang:'ui/file_dropdown' }}</a></li>
+    	<li ng-click="saveAs()"><a href="javascript:;">{{ 'saveAs' | lang:'ui/file_dropdown' }}</a></li>
     	<li class="divider"></li>
-    	<li><a href="javascript:;">{{ 'exportPNG' | lang:'ui/file_dropdown' }}</a></li>
-    	<li><a href="javascript:;">{{ 'exportFreemind' | lang:'ui/file_dropdown' }}</a></li>
+    	<li ng-click="export('png')"><a href="javascript:;">{{ 'exportPNG' | lang:'ui/file_dropdown' }}</a></li>
+    	<li ng-click="export('freemind')"><a href="javascript:;">{{ 'exportFreemind' | lang:'ui/file_dropdown' }}</a></li>
     </ul>
 </div>

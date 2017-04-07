@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 
     function HistoryRuntime() {
         var minder = this.minder;
-        var hotbox = this.hotbox;
+        // var hotbox = this.hotbox;
 
         var MAX_HISTORY = 100;
 
@@ -108,23 +108,23 @@ define(function(require, exports, module) {
         minder.on('import', reset);
         minder.on('patch', updateSelection);
 
-        var main = hotbox.state('main');
-        main.button({
-            position: 'top',
-            label: '撤销',
-            key: 'Ctrl + Z',
-            enable: hasUndo,
-            action: undo,
-            next: 'idle'
-        });
-        main.button({
-            position: 'top',
-            label: '重做',
-            key: 'Ctrl + Y',
-            enable: hasRedo,
-            action: redo,
-            next: 'idle'
-        });
+        // var main = hotbox.state('main');
+        // main.button({
+        //     position: 'top',
+        //     label: '撤销',
+        //     key: 'Ctrl + Z',
+        //     enable: hasUndo,
+        //     action: undo,
+        //     next: 'idle'
+        // });
+        // main.button({
+        //     position: 'top',
+        //     label: '重做',
+        //     key: 'Ctrl + Y',
+        //     enable: hasRedo,
+        //     action: redo,
+        //     next: 'idle'
+        // });
     }
 
     window.diff = jsonDiff;

@@ -159,8 +159,8 @@ angular.module('kityminderEditor')
 
 					'command': {
 						'appendsiblingnode': '插入同级主题',
-                        'appendparentnode': '插入上级主题',
-						'appendchildnode': '插入下级主题',
+                        'appendparentnode': '插入父主题',
+						'appendchildnode': '插入子主题',
 						'removenode': '删除',
 						'editnode': '编辑',
 						'arrangeup': '上移',
