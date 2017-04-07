@@ -34,9 +34,13 @@ angular.module('kityminderEditor')
 
                     return scope.getZoomRadio(value) * totalHeight;
                 };
+                scope.getWidth = function (value) {
+                    var totalWidth = $('.zoom-pan').width();
+                    return scope.getZoomRadio(value) * totalWidth;
+                }
 
                 // 初始的缩放倍数
-                scope.zoom = 100;
+                scope.zoom = 105;
 
                 // 发生缩放事件时
                 minder.on('zoom', function(e) {

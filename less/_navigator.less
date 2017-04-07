@@ -1,70 +1,43 @@
 .nav-bar {
     position: absolute;
-    width: 35px;
-    height: 240px;
     padding: 5px 0;
-    left: 10px;
+    right: 10px;
     bottom: 10px;
-    background: #fc8383;
-    color: #fff;
-    border-radius: 4px;
     z-index: 10;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     transition: -webkit-transform .7s 0.1s ease;
     transition: transform .7s 0.1s ease;
+    background: rgba(0,0,0,0.70);
+    box-shadow: -2px 0 4px 0 rgba(0,0,0,0.50);
+    border-radius: 6px;
+
+    & > div {
+        display: inline-block;
+        vertical-align: middle;
+        & > div[class^="icons3-"] {
+            display: inline-block;
+        }
+    }
 
     .nav-btn {
         width: 35px;
         height: 24px;
         line-height: 24px;
         text-align: center;
-
-        .icon {
-            background: url(images/icons.png);
-            width: 20px;
-            height: 20px;
-            margin: 2px auto;
-            display: block;
-        }
-
+        padding: 3px 0;
         &.active {
-            background-color: #5A6378;
+            background: #dfdfdf;
+        }
+        &.zoom-in, &.zoom-out {
+            &.active {
+                opacity: 0.5;
+                background: none;
+            }
         }
     }
-
-    .zoom-in .icon {
-        background-position: 0 -730px;
-    }
-
-    .zoom-out .icon {
-        background-position: 0 -750px;
-    }
-
-    .hand .icon {
-        background-position: 0 -770px;
-        width: 25px;
-        height: 25px;
-        margin: 0 auto;
-    }
-
-    .camera .icon {
-        background-position: 0 -870px;
-        width: 25px;
-        height: 25px;
-        margin: 0 auto;
-    }
-
-    .nav-trigger .icon {
-        background-position: 0 -845px;
-        width: 25px;
-        height: 25px;
-        margin: 0 auto;
-    }
-
     .zoom-pan {
-        width: 2px;
-        height: 70px;
-        box-shadow: 0 1px #E50000;
+        width: 70px;
+        height: 2px;
+        // box-shadow: 0 1px #E50000;
         position: relative;
         background: white;
         margin: 3px auto;
@@ -72,20 +45,21 @@
 
         .origin {
             position: absolute;
-            width: 20px;
+            width: 2px;
             height: 8px;
-            left: -9px;
-            margin-top: -4px;
+            left: 35px;
+            top: -3px;
+            // margin-top: -4px;
             background: transparent;
 
             &:after {
                 content: ' ';
                 display: block;
-                width: 6px;
-                height: 2px;
+                width: 2px;
+                height: 8px;
                 background: white;
-                left: 7px;
-                top: 3px;
+                // left: 7px;
+                // top: 3px;
                 position: absolute;
             }
         }

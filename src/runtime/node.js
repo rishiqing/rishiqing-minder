@@ -57,7 +57,6 @@ define(function(require, exports, module) {
                     return minder.queryCommandState(command) != -1;
                 },
                 render (format, option) {
-                    console.log(option);
                     if (option.command === 'Divider') {
                         return '<span class="divider"></span>';
                     } else {

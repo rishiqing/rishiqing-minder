@@ -15,7 +15,7 @@ angular.module('kityminderEditor')
 			defaultLang: 'zh-cn',
 
 			// 放大缩小比例
-			zoom: [10, 20, 30, 50, 80, 100, 120, 150, 200],
+			zoom: [10, 20, 30, 50, 80, 105, 120, 150, 200],
 
             // 图片上传接口
             imageUpload: 'server/imageUpload.php'

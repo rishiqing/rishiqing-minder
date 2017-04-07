@@ -57,10 +57,10 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/navigator/navigator.html',
-    "<div class=\"nav-bar\"><div class=\"nav-btn zoom-in\" ng-click=\"minder.execCommand('zoomIn')\" title=\"{{ 'zoom-in' | lang : 'ui' }}\" ng-class=\"{ 'active' : getZoomRadio(zoom) == 0 }\"><div class=\"icon\"></div></div><div class=\"zoom-pan\"><div class=\"origin\" ng-style=\"{'transform': 'translate(0, ' + getHeight(100) + 'px)'}\" ng-click=\"minder.execCommand('zoom', 100);\"></div><div class=\"indicator\" ng-style=\"{\n" +
-    "             'transform': 'translate(0, ' + getHeight(zoom) + 'px)',\n" +
+    "<div class=\"nav-bar\"><div class=\"nav-btn zoom-in\" ng-click=\"minder.execCommand('zoomIn')\" title=\"{{ 'zoom-in' | lang : 'ui' }}\" ng-class=\"{ 'active' : getZoomRadio(zoom) == 0 }\"><div class=\"icons3-plus_2x\"></div></div><div class=\"zoom-pan\"><div class=\"origin\" ng-click=\"minder.execCommand('zoom', 100);\"></div><div class=\"indicator\" ng-style=\"{\n" +
+    "             'transform': 'translate(' + getWidth(zoom) + 'px, 1px)',\n" +
     "             'transition': 'transform 200ms'\n" +
-    "             }\"></div></div><div class=\"nav-btn zoom-out\" ng-click=\"minder.execCommand('zoomOut')\" title=\"{{ 'zoom-out' | lang : 'ui' }}\" ng-class=\"{ 'active' : getZoomRadio(zoom) == 1 }\"><div class=\"icon\"></div></div><div class=\"nav-btn hand\" ng-click=\"minder.execCommand('hand')\" title=\"{{ 'hand' | lang : 'ui' }}\" ng-class=\"{ 'active' : minder.queryCommandState('hand') == 1 }\"><div class=\"icon\"></div></div><div class=\"nav-btn camera\" ng-click=\"minder.execCommand('camera', minder.getRoot(), 600);\" title=\"{{ 'camera' | lang : 'ui' }}\"><div class=\"icon\"></div></div><div class=\"nav-btn nav-trigger\" ng-class=\"{'active' : isNavOpen}\" ng-click=\"toggleNavOpen()\" title=\"{{ 'navigator' | lang : 'ui' }}\"><div class=\"icon\"></div></div></div><div class=\"nav-previewer\" ng-show=\"isNavOpen\"></div>"
+    "             }\"></div></div><div class=\"nav-btn zoom-out\" ng-click=\"minder.execCommand('zoomOut')\" title=\"{{ 'zoom-out' | lang : 'ui' }}\" ng-class=\"{ 'active' : getZoomRadio(zoom) == 1 }\"><div class=\"icons3-subtract_2x\"></div></div><div class=\"nav-btn hand\" ng-click=\"minder.execCommand('hand')\" title=\"{{ 'hand' | lang : 'ui' }}\" ng-class=\"{ 'active' : minder.queryCommandState('hand') == 1 }\"><div class=\"icons3-move_2x\"></div></div><div class=\"nav-btn camera\" ng-click=\"minder.execCommand('camera', minder.getRoot(), 600);\" title=\"{{ 'camera' | lang : 'ui' }}\"><div class=\"icons3-camera_2x\"></div></div></div>"
   );
 
 
@@ -152,7 +152,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/toolbar/toolbar.html',
-    "<file-btn minder=\"minder\" editor=\"editor\"></file-btn><span class=\"vertical-divider\"></span><undo-redo editor=\"editor\"></undo-redo><span class=\"vertical-divider\"></span><append-node minder=\"minder\"></append-node><relation-btn minder=\"minder\"></relation-btn><span class=\"vertical-divider\"></span><hyper-link minder=\"minder\"></hyper-link><image-btn minder=\"minder\"></image-btn><note-btn minder=\"minder\"></note-btn><sign-btn minder=\"minder\"></sign-btn><span class=\"vertical-divider\"></span><pallet-btn minder=\"minder\"></pallet-btn><span class=\"vertical-divider\"></span><font-operator minder=\"minder\" class=\"inline-directive\"></font-operator>"
+    "<file-btn minder=\"minder\" editor=\"editor\"></file-btn><span class=\"vertical-divider\"></span><undo-redo editor=\"editor\"></undo-redo><span class=\"vertical-divider\"></span><append-node minder=\"minder\"></append-node><span class=\"vertical-divider\"></span><hyper-link minder=\"minder\"></hyper-link><image-btn minder=\"minder\"></image-btn><note-btn minder=\"minder\"></note-btn><sign-btn minder=\"minder\"></sign-btn><span class=\"vertical-divider\"></span><pallet-btn minder=\"minder\"></pallet-btn><span class=\"vertical-divider\"></span><font-operator minder=\"minder\" class=\"inline-directive\"></font-operator>"
   );
 
 

@@ -1,0 +1,28 @@
+[class^="icons3-"], [class*=" icons3-"] {
+    background-image: url(images/icons3.png);
+    background-repeat: no-repeat;
+    background-size: 50px 32px; // 100 × 64
+    display: block;
+}
+
+.stitches-icons3(@x: 0, @y: 0, @width: 0, @height: 0) {
+    background-position: @x / 2 @y / 2;
+    width: @width / 2;
+    height: @height / 2;
+}
+
+.icons3-camera_2x {
+    .stitches-icons3(0, 0, 32px, 32px);
+}
+
+.icons3-move_2x {
+    .stitches-icons3(-32px, 0, 36px, 36px);
+}
+
+.icons3-plus_2x {
+    .stitches-icons3(-68px, 0, 32px, 32px);
+}
+
+.icons3-subtract_2x {
+    .stitches-icons3(0, -32px, 32px, 32px);
+}
