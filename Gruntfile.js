@@ -175,7 +175,7 @@ module.exports = function(grunt) {
 
 	    ngtemplates: {
 		    kityminderEditor: {
-			    src: ['ui/directive/**/*.html', 'ui/dialog/**/*.html'],
+			    src: ['ui/directive/**/*.html', 'ui/dialog/**/*.html', 'ui/bootstrap/**/*.html'],
 			    dest: 'ui/templates.js',
 			    options: {
 				    htmlmin: {
