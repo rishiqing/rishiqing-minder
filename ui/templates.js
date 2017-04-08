@@ -31,6 +31,11 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
   );
 
 
+  $templateCache.put('ui/directive/fullScreen/fullScreen.html',
+    "<div class=\"full-screen\"><div ng-click=\"toggleIcon()\" ng-class=\"{'icons2-full_screen_out': out, 'icons2-full_screen_in': in}\"></div></div>"
+  );
+
+
   $templateCache.put('ui/directive/hyperLink/hyperLink.html',
     "<div class=\"km-btn-group\" is-open=\"isopen\"><div class=\"km-btn-item\" tooltip-placement=\"bottom\" tooltip=\"{{ 'link' | lang:'ui' }}\" ng-class=\"{'active': isopen}\" ng-click=\"minder.queryCommandState('HyperLink') === -1 || addHyperlink()\" ng-disabled=\"minder.queryCommandState('HyperLink') === -1\"><i class=\"icons2-link\"></i></div></div>"
   );
