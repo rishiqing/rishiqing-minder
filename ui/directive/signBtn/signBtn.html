@@ -4,6 +4,7 @@
         tooltip-append-to-body="true"
         tooltip="{{ 'sign' | lang:'ui' }}"
 		dropdown-toggle
+        ng-disabled="minder.queryCommandState('priority') === -1 &&  minder.queryCommandState('progress') === -1"
         ng-class="{'active': isopen}">
         <i class="icons2-add_sign"></i>
     </div>

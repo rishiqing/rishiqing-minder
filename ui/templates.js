@@ -137,7 +137,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/signBtn/signBtn.html',
-    "<div class=\"km-btn-group dropdown r-dropdown sign-btn\" dropdown><div class=\"km-btn-item dropdown-toggle\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\" tooltip=\"{{ 'sign' | lang:'ui' }}\" dropdown-toggle ng-class=\"{'active': isopen}\"><i class=\"icons2-add_sign\"></i></div><div class=\"dropdown-menu r-dropdown-menu\"><div class=\"r-dropdown-header\">{{ 'sign' | lang:'ui' }}</div><div class=\"r-dropdown-body\"><priority-editor minder=\"minder\"></priority-editor><progress-editor minder=\"minder\"></progress-editor></div></div></div>"
+    "<div class=\"km-btn-group dropdown r-dropdown sign-btn\" dropdown><div class=\"km-btn-item dropdown-toggle\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\" tooltip=\"{{ 'sign' | lang:'ui' }}\" dropdown-toggle ng-disabled=\"minder.queryCommandState('priority') === -1 &&  minder.queryCommandState('progress') === -1\" ng-class=\"{'active': isopen}\"><i class=\"icons2-add_sign\"></i></div><div class=\"dropdown-menu r-dropdown-menu\"><div class=\"r-dropdown-header\">{{ 'sign' | lang:'ui' }}</div><div class=\"r-dropdown-body\"><priority-editor minder=\"minder\"></priority-editor><progress-editor minder=\"minder\"></progress-editor></div></div></div>"
   );
 
 
