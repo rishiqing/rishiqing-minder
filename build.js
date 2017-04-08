@@ -2,7 +2,7 @@
 * @Author: qin yang
 * @Date:   2016-12-09 09:51:37
 * @Last Modified by:   qinyang
-* @Last Modified time: 2017-04-08 08:24:40
+* @Last Modified time: 2017-04-08 08:48:31
 */
 
 require('babel-core/register');
@@ -23,16 +23,6 @@ var type,
   spawnSync = child_process.spawnSync,
   indexHtmlPaths = [];
 
-if (yargs.argv.beta) {
-  type = 'beta';
-} else if (yargs.argv.release) {
-  type = 'release';
-} else {
-  console.log('x 请指定需要部署的环境beta或者release'.error);
-  process.exit(1);
-}
-
-var env = {beta: 'production_beta', release: 'production'}[type];
 var gruntResult = spawnSync('npm', ['run', 'grunt-build'], { stdio: 'inherit' });
 if (gruntResult.status) {
   bearychat({ text: 'grunt打包失败 分支：' + jenkinsInfo.branch, user: bearychatUser });
