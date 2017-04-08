@@ -5,6 +5,9 @@ node_modules/
 .tmp/
 upload/
 dist
+distDeploy
 index.html
 *.log
 minder-native-support/archive/src/tmp
+.config.json
+.rishiqing-deploy.yml

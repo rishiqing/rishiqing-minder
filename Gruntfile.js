@@ -49,7 +49,8 @@ module.exports = function(grunt) {
 	            '.tmp',
 	            'dist/'
             ],
-	        clstmp: ['.tmp']
+	        clstmp: ['.tmp'],
+	        originalFile: ['dist/kityminder.editor.css', 'dist/kityminder.editor.js', 'dist/vender.css', 'dist/vender.js']
         },
 
         // resolve dependence
@@ -207,9 +208,6 @@ module.exports = function(grunt) {
 					src: 'images/*',
 				    dest: 'dist'
 
-			    }, {
-			    	src: 'favicon.ico',
-			    	dest: 'dist/' // 必须加 / ，不然会报错
 			    }]
 		    }
 	    },
@@ -234,8 +232,21 @@ module.exports = function(grunt) {
 	    		src: 'entry.html',
 	    		dest: 'dist/index.html',
 	    		options: {
+	    			prefix: 'https://res-front-cdn.timetask.cn/minder/',
 	    			data: {
 	    				scriptTemplate: ''
+	    			},
+	    			scripts: {
+	    				bundle: [
+	    					'dist/vender.min.js',
+	    					'dist/kityminder.editor.min.js'
+	    				]
+	    			},
+	    			styles: {
+	    				bundle: [
+	    					'dist/vender.min.css',
+	    					'dist/kityminder.editor.min.css'
+	    				]
 	    			}
 	    		}
 	    	},
@@ -245,6 +256,12 @@ module.exports = function(grunt) {
 	    		options: {
 	    			data: {
 	    				scriptTemplate: scriptTemplate
+	    			},
+	    			scripts: {
+	    				bundle: []
+	    			},
+	    			styles: {
+	    				bundle: []
 	    			}
 	    		}
 	    	}
@@ -253,9 +270,8 @@ module.exports = function(grunt) {
 
     // Build task(s).
 	grunt.registerTask('build', ['clean:last',
-		'htmlbuild:dist',
 		'wiredep:dist',
-        'ngtemplates', 'dependence', 'ngAnnotate', 'concat', 'uglify', 'less', 'cssmin', 'copy:dist', 'clean:clstmp']);
+        'ngtemplates', 'dependence', 'ngAnnotate', 'concat', 'uglify', 'less', 'cssmin', 'copy:dist', 'htmlbuild:dist', 'clean:clstmp', 'clean:originalFile']);
 
 	grunt.registerTask('dev', ['clean:last',
 		'htmlbuild:dev',
