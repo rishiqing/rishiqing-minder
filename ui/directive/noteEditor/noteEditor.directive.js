@@ -37,7 +37,7 @@ angular.module('kityminderEditor')
 				$scope.$watch('noteContent', function(content) {
 					var enabled = minder.queryCommandState('note') != -1;
 
-					if (content && enabled && !isInteracting) {
+					if (enabled && !isInteracting) {
 						minder.execCommand('note', content);
 					}
 

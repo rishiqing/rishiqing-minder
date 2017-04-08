@@ -11,6 +11,7 @@ angular.module('kityminderEditor')
 			link: function (scope) {
 				var editor = scope.editor;
 				var minder = scope.minder;
+				scope.kity = window.kity;
 				
 				var readAsText = function (blob, callback) {
 					var fileReader = new FileReader();
@@ -78,7 +79,6 @@ angular.module('kityminderEditor')
 					}
 					minder.exportData(type, options).then(function (data) {
 						if (type === 'png') {
-							console.log('data', data);
 							util.downloadBase64(data, minder.getRoot().getText() + '.png');
 						}
 					});

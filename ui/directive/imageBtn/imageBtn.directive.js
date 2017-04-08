@@ -27,12 +27,17 @@ angular.module('kityminderEditor')
                     });
 
                     imageModal.result.then(function(result) {
-                        console.log('imageModal', result);
                         if (!result.url) {
                             minder.execCommand('Image', '');
                         } else {
                             minder.execCommand('image', result.url, result.title || '');
                         }
+                        // 这个地方在setTimeout之后，再触发一次contentchange事件，是因为修改图片之后
+                        // 系统触发的content事件时，数据还没有得到真正的修改，
+                        // 导致获取到的数据是旧的，所以先在这里这样解决一下
+                        setTimeout(function () {
+                            minder.fire('contentchange');
+                        }, 0);
                     });
                 }
             }
