@@ -1,11 +1,12 @@
 angular.module('kityminderEditor')
-    .controller('image.ctrl', ['$http', '$scope', '$modalInstance', 'image', 'server', function($http, $scope, $modalInstance, image, server) {
+    .controller('image.ctrl', function($http, $scope, $modalInstance, image, server, util) {
 
         $scope.data = {
             list: [],
             url: image.url || '',
+            base64: '',
             title: image.title || '',
-            R_URL: /^https?\:\/\/\w+/
+            R_URL: /^https?\:\/\/\w+|^blob\:/
         };
 
         setTimeout(function() {
@@ -58,12 +59,19 @@ angular.module('kityminderEditor')
             }
             if (/^.*\.(jpg|JPG|jpeg|JPEG|gif|GIF|png|PNG)$/.test(fileInput.val())) {
                 var file = fileInput[0].files[0];
-                return server.uploadImage(file).then(function (json) {
-                    var resp = json.data;
-                    if (resp.errno === 0) {
-                        $scope.data.url = resp.data.url;
-                    }
+                util.readAsBase64(file, function (err, result) {
+                    $scope.data.url = result.url;
+                    $scope.data.title = file.name;
+                    $scope.data.base64 = result.base64;
+                    $scope.$apply();
                 });
+                // return server.uploadImage(file).then(function (json) {
+                //     var resp = json.data;
+                //     if (resp.errno === 0) {
+                //         $scope.data.url = resp.data.url;
+                //     }
+                // });
+                fileInput.val('');
             } else {
                 alert("后缀只能是 jpg、gif 及 png");
             }
@@ -83,7 +91,8 @@ angular.module('kityminderEditor')
             if($scope.data.R_URL.test($scope.data.url)) {
                 $modalInstance.close({
                     url: $scope.data.url,
-                    title: $scope.data.title
+                    title: $scope.data.title,
+                    base64: $scope.data.base64
                 });
             } else {
                 $scope.urlPassed = false;
@@ -105,7 +114,7 @@ angular.module('kityminderEditor')
         };
 
         $scope.deleteCurrent = function () {
-            $modalInstance.close({ url: null });
+            $modalInstance.close({ url: null, title: null, base64: null });
             editor.receiver.selectAll();
         }
 
@@ -116,4 +125,4 @@ angular.module('kityminderEditor')
 
             return $http.jsonp(url);
         }
-    }]);
+    });
