@@ -100,8 +100,8 @@ define(function(require, exports, module) {
                     url: imageUrl,
                     width: imageSize.width,
                     height: imageSize.height,
-                    x: -renderContainer.getBoundaryBox().x + imageRenderBox.x + 20,
-                    y: -renderContainer.getBoundaryBox().y + imageRenderBox.y + 20
+                    x: -renderContainer.getBoundaryBox().x + imageRenderBox.x, // 这个地方之前还加了 20
+                    y: -renderContainer.getBoundaryBox().y + imageRenderBox.y // 这个地方之前还加了20
                 };
 
                 imagesInfo.push(imageInfo);
@@ -184,6 +184,7 @@ define(function(require, exports, module) {
                 return loadImages(imagesInfo);
             }).then(function($images) {
                 for(var i = 0; i < $images.length; i++) {
+                    if (/^data\:/.test($images[i].element.src)) continue;
                     drawImage(ctx, $images[i].element, $images[i].x, $images[i].y, $images[i].width, $images[i].height);
                 }
 
