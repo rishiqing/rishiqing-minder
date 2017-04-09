@@ -6,7 +6,7 @@ angular.module('kityminderEditor')
             url: image.url || '',
             base64: '',
             title: image.title || '',
-            R_URL: /^https?\:\/\/\w+|^blob\:/
+            R_URL: /^https?\:\/\/\w+|^blob\:|^data\:/
         };
 
         setTimeout(function() {
