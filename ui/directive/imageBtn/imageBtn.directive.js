@@ -4,7 +4,8 @@ angular.module('kityminderEditor')
             restrict: 'E',
             templateUrl: 'ui/directive/imageBtn/imageBtn.html',
             scope: {
-                minder: '='
+                minder: '=',
+                editor: '='
             },
             replace: true,
             link: function($scope) {
@@ -22,15 +23,21 @@ angular.module('kityminderEditor')
                         resolve: {
                             image: function() {
                                 return image;
+                            },
+                            editor: function () {
+                                return $scope.editor;
                             }
                         }
                     });
 
                     imageModal.result.then(function(result) {
+                        // console.log('result', result);
+                        // console.log('base64 length', result.base64.length);
                         if (!result.url) {
-                            minder.execCommand('Image', '');
+                            minder.execCommand('image', '', '');
                         } else {
-                            minder.execCommand('image', result.url, result.title || '');
+                            var url = result.base64 ? result.base64 : result.url;
+                            minder.execCommand('image', url, result.title || '');
                         }
                         // 这个地方在setTimeout之后，再触发一次contentchange事件，是因为修改图片之后
                         // 系统触发的content事件时，数据还没有得到真正的修改，

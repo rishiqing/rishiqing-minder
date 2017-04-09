@@ -12,31 +12,6 @@ angular.module('kityminderEditor')
 				var editor = scope.editor;
 				var minder = scope.minder;
 				scope.kity = window.kity;
-				
-				var readAsText = function (blob, callback) {
-					var fileReader = new FileReader();
-					fileReader.onload = function (e) {
-	                	callback(null, e.target.result);
-	                }
-    				fileReader.readAsText(blob);
-				}
-
-				var readAsJson = function (blob, callback) {
-					readAsText(blob, function (err, s) {
-						if (err) {
-							if (callback) callback(err);
-							return;
-						}
-						if (s) {
-							try {
-								var json = JSON.parse(s);
-								if (callback) callback(null, json);
-							} catch (e) {
-								if (callback) callback(e);
-							}
-						}
-					});
-				}
 
 				scope.openInFile = function () {
 					editor.postMessage.sendCommand('open_in_file');
@@ -57,7 +32,7 @@ angular.module('kityminderEditor')
 		            }
 		            if (/^.*\.(km)$/.test(fileInput.val())) {
 		                var file = fileInput[0].files[0];
-		                readAsJson(file, function (err, data) {
+		                util.readAsJson(file, function (err, data) {
 		                	if (data) editor.postMessage.sendCommand('upload_local', data);
 		                })
 		            }

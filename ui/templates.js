@@ -157,7 +157,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/toolbar/toolbar.html',
-    "<file-btn minder=\"minder\" editor=\"editor\"></file-btn><span class=\"vertical-divider\"></span><undo-redo editor=\"editor\"></undo-redo><span class=\"vertical-divider\"></span><append-node minder=\"minder\"></append-node><span class=\"vertical-divider\"></span><hyper-link minder=\"minder\"></hyper-link><image-btn minder=\"minder\"></image-btn><note-btn minder=\"minder\"></note-btn><sign-btn minder=\"minder\"></sign-btn><span class=\"vertical-divider\"></span><pallet-btn minder=\"minder\"></pallet-btn><span class=\"vertical-divider\"></span><font-operator minder=\"minder\" class=\"inline-directive\"></font-operator>"
+    "<file-btn minder=\"minder\" editor=\"editor\"></file-btn><span class=\"vertical-divider\"></span><undo-redo editor=\"editor\"></undo-redo><span class=\"vertical-divider\"></span><append-node minder=\"minder\"></append-node><span class=\"vertical-divider\"></span><hyper-link minder=\"minder\"></hyper-link><image-btn minder=\"minder\" editor=\"editor\"></image-btn><note-btn minder=\"minder\"></note-btn><sign-btn minder=\"minder\"></sign-btn><span class=\"vertical-divider\"></span><pallet-btn minder=\"minder\"></pallet-btn><span class=\"vertical-divider\"></span><font-operator minder=\"minder\" class=\"inline-directive\"></font-operator>"
   );
 
 

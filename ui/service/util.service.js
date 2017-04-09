@@ -35,19 +35,6 @@ angular.module('kityminderEditor')
 		}
 
 		var downloadBase64 = function (_base64, fileName) {
-			// var base64 = _base64.split(',')[1];
-			// var base64Info = _base64.split(',')[0];
-			// var type = base64Info.split(';')[0].split(':')[1];
-			// var bytes = window.atob(base64);
-			// var ab = new ArrayBuffer(bytes.length);
-			// var ia = new Uint8Array(ab);
-			// for (var i = 0; i < bytes.length; i++) {
-			//     ia[i] = bytes.charCodeAt(i);
-			// }
-
-			// var image = new Blob( [ab] , {type : type});
-			// var url = url = URL.createObjectURL(image);
-
 			var a = document.createElement('a');//这里建一个a标签，用于下面下载图片
 			a.href = _base64;
 			a.setAttribute('download', fileName);
@@ -57,9 +44,50 @@ angular.module('kityminderEditor')
 			a.dispatchEvent(e);// 触发点击事件，开始下载
 		}
 
+		var readAsText = function (blob, callback) {
+			var fileReader = new FileReader();
+			fileReader.onload = function (e) {
+            	if (callback) callback(null, e.target.result);
+            }
+			fileReader.readAsText(blob);
+		}
+
+		var readAsJson = function (blob, callback) {
+			readAsText(blob, function (err, s) {
+				if (err) {
+					if (callback) callback(err);
+					return;
+				}
+				if (s) {
+					try {
+						var json = JSON.parse(s);
+						if (callback) callback(null, json);
+					} catch (e) {
+						if (callback) callback(e);
+					}
+				}
+			});
+		}
+
+		var readAsDataURL = function (blob, callback) {
+			var fileReader = new FileReader();
+			var url = URL.createObjectURL(blob);
+			fileReader.onload = function (e) {
+				if (callback) callback(null, {
+					base64: e.target.result,
+					url: url
+				});
+			}
+			fileReader.readAsDataURL(blob);
+		}
+
 		return {
 			convert_buffer_to_utf8: convert_buffer_to_utf8,
-			downloadBase64: downloadBase64
+			downloadBase64: downloadBase64,
+			readAsText: readAsText,
+			readAsJson: readAsJson,
+			readAsDataURL: readAsDataURL,
+			readAsBase64: readAsDataURL
 		}
 
 	});
