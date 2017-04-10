@@ -55,6 +55,7 @@ define(function(require, exports, module) {
         svgContainer = document.createElement('div');
         svgContainer.innerHTML = svgXml;
         svgDom = svgContainer.querySelector('svg');
+        svgDom.querySelectorAll('image').forEach(function (img) { img.remove() });
         svgDom.setAttribute('width', renderBox.width + 1);
         svgDom.setAttribute('height', renderBox.height + 1);
         svgDom.setAttribute('style', 'font-family: Arial, "Microsoft Yahei","Heiti SC";');
@@ -157,9 +158,9 @@ define(function(require, exports, module) {
 
         function drawImage(ctx, image, x, y, width, height) {
             if (width && height) {
-                ctx.drawImage(image, x, y, width, height);
+                ctx.drawImage(image, x + padding, y + padding, width, height);
             } else {
-                ctx.drawImage(image, x, y);
+                ctx.drawImage(image, x + padding, y + padding);
             }
         }
 
@@ -184,8 +185,9 @@ define(function(require, exports, module) {
                 return loadImages(imagesInfo);
             }).then(function($images) {
                 for(var i = 0; i < $images.length; i++) {
-                    if (/^data\:/.test($images[i].element.src)) continue;
-                    drawImage(ctx, $images[i].element, $images[i].x, $images[i].y, $images[i].width, $images[i].height);
+                    var $image = $images[i];
+                    // if (/^data\:/.test($image.element.src)) continue;
+                    drawImage(ctx, $image.element, $image.x + offsetX, $image.y + offsetY, $image.width, $image.height);
                 }
 
                 DomURL.revokeObjectURL(svgDataUrl);
