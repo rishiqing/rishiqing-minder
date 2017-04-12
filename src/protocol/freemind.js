@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 	var data = window.kityminder.data;
 	var Promise = window.kityminder.Promise;
-    var freemindTpl = require('./tpl/freemind/freemind');
+    var freemindTpl = require('./tpl_freemind');
 	// 标签 map
     var markerMap = {
         'full-1': ['priority', 1],
@@ -84,51 +84,51 @@ define(function (require, exports, module) {
         },
 
         encode: function(json, km, options) {
-            var url = 'minder-native-support/export.php'; // minder-native-support/export.php
+            // var url = 'minder-native-support/export.php'; // minder-native-support/export.php
             
-            var data = JSON.stringify(json.root);
+            // var data = JSON.stringify(json.root);
 
-            function fetch() {
-                return new Promise(function(resolve, reject) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', url);
+            // function fetch() {
+            //     return new Promise(function(resolve, reject) {
+            //         var xhr = new XMLHttpRequest();
+            //         xhr.open('POST', url);
                     
-                    xhr.responseType = 'blob';
-                    xhr.onload = resolve;
-                    xhr.onerror = reject;
+            //         xhr.responseType = 'blob';
+            //         xhr.onload = resolve;
+            //         xhr.onerror = reject;
 
-                    var form = new FormData();
-                    form.append('type', 'freemind');
-                    form.append('data', data);
+            //         var form = new FormData();
+            //         form.append('type', 'freemind');
+            //         form.append('data', data);
 
-                    xhr.send(form);
-                }).then(function(e) {
-                    return e.target.response;
-                });
-            }
+            //         xhr.send(form);
+            //     }).then(function(e) {
+            //         return e.target.response;
+            //     });
+            // }
 
-            function download() {
-                var filename = options.filename || 'freemind.mm';
+            // function download() {
+            //     var filename = options.filename || 'freemind.mm';
 
-                var form = document.createElement('form');
-                form.setAttribute('action', url);
-                form.setAttribute('method', 'POST');
-                form.appendChild(field('filename', filename));
-                form.appendChild(field('type', 'freemind'));
-                form.appendChild(field('data', data));
-                form.appendChild(field('download', '1'));
-                document.body.appendChild(form);
-                form.submit();
-                document.body.removeChild(form);
+            //     var form = document.createElement('form');
+            //     form.setAttribute('action', url);
+            //     form.setAttribute('method', 'POST');
+            //     form.appendChild(field('filename', filename));
+            //     form.appendChild(field('type', 'freemind'));
+            //     form.appendChild(field('data', data));
+            //     form.appendChild(field('download', '1'));
+            //     document.body.appendChild(form);
+            //     form.submit();
+            //     document.body.removeChild(form);
 
-                function field(name, content) {
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = name;
-                    input.value = content;
-                    return input;
-                }
-            }
+            //     function field(name, content) {
+            //         var input = document.createElement('input');
+            //         input.type = 'hidden';
+            //         input.name = name;
+            //         input.value = content;
+            //         return input;
+            //     }
+            // }
 
             return new Promise(function (resolve, reject) {
                 resolve(freemindTpl(json.root))

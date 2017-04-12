@@ -1,5 +1,5 @@
 define(function (require, exports, module) {
-	var tpl = require('../tpl');
+	var tpl = require('./tpl');
 	var freemindTpl = '<map version="1.0.1">\n'
 					+ '<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->\n'
     				+ '{{=freemindContent}}\n'
