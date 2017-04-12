@@ -10,5 +10,5 @@ define(function (require, exports, module) {
 			return interpolate(_interpolate, args);
 		})
 	}
-	module.exports = format;
+	return module.exports = format; // 这个地方必须写return ,不然会报错，操。
 })
