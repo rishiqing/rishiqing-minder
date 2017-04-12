@@ -1,7 +1,6 @@
 define(function (require, exports, module) {
 	var data = window.kityminder.data;
 	var Promise = window.kityminder.Promise;
-    var freemindTpl = require('./tpl_freemind');
 	// 标签 map
     var markerMap = {
         'full-1': ['priority', 1],
@@ -131,6 +130,7 @@ define(function (require, exports, module) {
             // }
 
             return new Promise(function (resolve, reject) {
+                var freemindTpl = require('./tpl_freemind');
                 resolve(freemindTpl(json.root))
             });
             

@@ -21,7 +21,7 @@ define(function (require, exports, module) {
         			+ '</html>'
     				+ '</richcontent>'
 
-	module.exports = function (_node) {
+	return module.exports = function (_node) { // 这个地方必须写return ,不然会报错，操。
 		var template = '';
 		var _position = ['right', 'left'];
 		var _id = 1;
