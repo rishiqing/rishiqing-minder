@@ -34,14 +34,24 @@ angular.module('kityminderEditor')
 			return utf8_decode(s);
 		}
 
-		var downloadBase64 = function (_base64, fileName) {
+		var downloadByUrl = function (url, fileName) {
 			var a = document.createElement('a');//这里建一个a标签，用于下面下载图片
-			a.href = _base64;
+			a.href = url;
 			a.setAttribute('download', fileName);
 			a.target = '_blank';
 			var e = document.createEvent('MouseEvents');
 			e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
 			a.dispatchEvent(e);// 触发点击事件，开始下载
+		}
+
+		var downloadBase64 = function (_base64, fileName) {
+			downloadByUrl(_base64, fileName);
+		}
+
+		var downloadText = function (text, fileName) {
+			var blob = new Blob([text]);
+			var url  = URL.createObjectURL(blob);
+			downloadByUrl(url, fileName);
 		}
 
 		var readAsText = function (blob, callback) {
@@ -84,6 +94,7 @@ angular.module('kityminderEditor')
 		return {
 			convert_buffer_to_utf8: convert_buffer_to_utf8,
 			downloadBase64: downloadBase64,
+			downloadText: downloadText,
 			readAsText: readAsText,
 			readAsJson: readAsJson,
 			readAsDataURL: readAsDataURL,

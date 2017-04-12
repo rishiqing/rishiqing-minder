@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
 	var data = window.kityminder.data;
 	var Promise = window.kityminder.Promise;
+    var freemindTpl = require('./tpl/freemind/freemind');
 	// 标签 map
     var markerMap = {
         'full-1': ['priority', 1],
@@ -129,11 +130,15 @@ define(function (require, exports, module) {
                 }
             }
 
-            if (options && options.download) {
-                return download();
-            } else {
-                return fetch();
-            }
+            return new Promise(function (resolve, reject) {
+                resolve(freemindTpl(json.root))
+            });
+            
+            // if (options && options.download) {
+            //     return download();
+            // } else {
+            //     return fetch();
+            // }
         }
     });
 });
