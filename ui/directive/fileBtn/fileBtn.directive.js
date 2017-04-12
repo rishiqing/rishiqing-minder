@@ -55,6 +55,8 @@ angular.module('kityminderEditor')
 					minder.exportData(type, options).then(function (data) {
 						if (type === 'png') {
 							util.downloadBase64(data, minder.getRoot().getText() + '.png');
+						} else if (type === 'freemind') {
+							util.downloadText(data, options.filename);
 						}
 					});
 				}
