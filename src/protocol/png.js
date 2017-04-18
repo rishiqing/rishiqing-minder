@@ -55,7 +55,9 @@ define(function(require, exports, module) {
         svgContainer = document.createElement('div');
         svgContainer.innerHTML = svgXml;
         svgDom = svgContainer.querySelector('svg');
-        svgDom.querySelectorAll('image').forEach(function (img) { img.remove() });
+        Array.prototype.forEach.call(svgDom.querySelectorAll('image'), function (img) {
+            img.remove();
+        });
         svgDom.setAttribute('width', renderBox.width + 1);
         svgDom.setAttribute('height', renderBox.height + 1);
         svgDom.setAttribute('style', 'font-family: Arial, "Microsoft Yahei","Heiti SC";');
