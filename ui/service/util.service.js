@@ -45,7 +45,19 @@ angular.module('kityminderEditor')
 		}
 
 		var downloadBase64 = function (_base64, fileName) {
-			downloadByUrl(_base64, fileName);
+			var base64 = _base64.split(',')[1];
+			var base64Info = _base64.split(',')[0];
+			var type = base64Info.split(';')[0].split(':');
+			var bytes = window.atob(base64);
+			var ab = new ArrayBuffer(bytes.length);
+			var ia = new Uint8Array(ab);
+			for (var i = 0; i < bytes.length; i++) {
+				ia[i] = bytes.charCodeAt(i);
+			}
+			var image = new Blob([ab], { type: type });
+			var url = URL.createObjectURL(image);
+
+			downloadByUrl(url, fileName);
 		}
 
 		var downloadText = function (text, fileName) {
