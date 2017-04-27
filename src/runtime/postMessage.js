@@ -2,14 +2,24 @@
 * @Author: qinyang
 * @Date:   2017-04-05 08:47:29
 * @Last Modified by:   qinyang
-* @Last Modified time: 2017-04-06 08:05:11
+* @Last Modified time: 2017-04-27 12:20:21
 */
 
 define(function (require, exports, module) {
 	function PostMessageRuntime () {
 		var minder = this.minder;
+		var search = window.location.search.split('?')[1];
+		var ns = ''; // 命名空间，用来隔离事件通道
+		if (search) {
+			var list = search.split('&');
+			list.forEach(function (item) {
+				if (item.indexOf('ns') === 0) {
+					ns = item.split('=')[1];
+				}
+			});
+		}
 
-		var prefix = 'minder_';
+		var prefix = ns + 'minder_';
 
 		var DefaultCommand = {
 			ContentChange: 'content_change',
@@ -18,6 +28,7 @@ define(function (require, exports, module) {
 		};
 
 		function sendData (data) {
+			data.ns = ns;
 			window.parent.postMessage(data, '*');
 		}
 

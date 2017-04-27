@@ -5,7 +5,9 @@ angular.module('kityminderEditor')
 			templateUrl: 'ui/directive/kityminderEditor/kityminderEditor.html',
 			replace: true,
 			scope: {
-				onInit: '&'
+				onInit: '&',
+				disablePreview: '=',
+				enablePreview: '='
 			},
 			link: function(scope, element, attributes) {
 
@@ -19,6 +21,15 @@ angular.module('kityminderEditor')
 
 					minderService.executeCallback();
 				}
+
+				window.enablePreview = function () {
+					scope.enablePreview();
+					if (window.minder) window.minder.disable();
+				};
+				window.disablePreview = function () {
+					scope.disablePreview();
+					if (window.minder) window.minder.enable();
+				};
 
 				if (typeof(seajs) != 'undefined') {
 					/* global seajs */
@@ -42,6 +53,7 @@ angular.module('kityminderEditor')
 						}
 
 						window.editor.postMessage.onImportJson(function (data) {
+							console.log('onImportJson', data);
 							editor.minder.importJson(data);
 						})
 						
@@ -56,6 +68,7 @@ angular.module('kityminderEditor')
 						scope.$apply();
 
 						window.editor.postMessage.sendInitData();
+
 						onInit(editor, minder);
 					});
 
