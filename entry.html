@@ -86,14 +86,14 @@
 					var list = search.split('&');
 					list.forEach(function (item) {
 						if (item.indexOf('preview') === 0) {
-							preview = item.split('=')[1];
+							preview = item.split('=')[1] || true;
 						}
 						if (item.indexOf('furl') === 0) {
 							furl = decodeURIComponent(item.split('=')[1]);
 						}
 					});
 				}
-				if (preview === 'false') preview = false;
+				if (preview === 'false' || !preview) preview = false;
 				else preview = true;
 				$scope.state = {
 					preview: preview,
