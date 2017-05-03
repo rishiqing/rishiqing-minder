@@ -1,5 +1,5 @@
 angular.module('kityminderEditor')
-	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', function(config, minderService, revokeDialog) {
+	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', '$http', function(config, minderService, revokeDialog, $http) {
 		return {
 			restrict: 'EA',
 			templateUrl: 'ui/directive/kityminderEditor/kityminderEditor.html',
@@ -7,10 +7,10 @@ angular.module('kityminderEditor')
 			scope: {
 				onInit: '&',
 				disablePreview: '=',
-				enablePreview: '='
+				enablePreview: '=',
+				state: '='
 			},
 			link: function(scope, element, attributes) {
-
 				var $minderEditor = element.children('.minder-editor')[0];
 
 				function onInit(editor, minder) {
@@ -24,12 +24,19 @@ angular.module('kityminderEditor')
 
 				window.enablePreview = function () {
 					scope.enablePreview();
-					if (window.minder) window.minder.disable();
+					if (window.minder && window.minder.getStatus() !== 'readonly') window.minder.disable();
 				};
 				window.disablePreview = function () {
 					scope.disablePreview();
-					if (window.minder) window.minder.enable();
+					if (window.minder && window.minder.getStatus() === 'readonly') window.minder.enable();
 				};
+
+				function getDataByUrl (url, callback) {
+					$http.get(url)
+					.then(function (result) {
+						callback(result.data);
+					})
+				}
 
 				if (typeof(seajs) != 'undefined') {
 					/* global seajs */
@@ -53,12 +60,18 @@ angular.module('kityminderEditor')
 						}
 
 						window.editor.postMessage.onImportJson(function (data) {
-							console.log('onImportJson', data);
 							editor.minder.importJson(data);
 						})
 						
 
 						window.minder = window.km = editor.minder;
+
+						if (scope.state.preview) {
+							window.minder.disable();
+							if (scope.state.furl) getDataByUrl(scope.state.furl, function (data) {
+								if (data && data.version && data.template) editor.minder.importJson(data);
+							});
+						}
 
 						scope.editor = editor;
 						scope.minder = minder;
@@ -79,6 +92,13 @@ angular.module('kityminderEditor')
 
 					window.editor = scope.editor = editor;
 					window.minder = scope.minder = editor.minder;
+
+					if (scope.state.preview) {
+						window.minder.disable();
+						if (scope.state.furl) getDataByUrl(scope.state.furl, function (data) {
+							if (data && data.version && data.template) editor.minder.importJson(data);
+						});
+					}
 
 					window.editor.postMessage.onImportJson(function (data) {
 						editor.minder.importJson(data);
