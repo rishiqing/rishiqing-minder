@@ -51,7 +51,7 @@
 	</style>
 </head>
 <body ng-app="kityminderDemo" ng-controller="MainController" ng-class="{'enable-preview': state.preview}">
-<kityminder-editor on-init="initEditor(editor, minder)" enable-preview="enablePreview" disable-preview="disablePreview"></kityminder-editor>
+<kityminder-editor on-init="initEditor(editor, minder)" enable-preview="enablePreview" disable-preview="disablePreview" state="state"></kityminder-editor>
 </body>
 
 <!-- build:remove dist -->
@@ -80,9 +80,24 @@
 				configProvider.set('imageUpload', '../server/imageUpload.php');
 			})
 			.controller('MainController', function($scope) {
-
+				var search = window.location.search.split('?')[1];
+				var preview = false, furl = '';
+				if (search) {
+					var list = search.split('&');
+					list.forEach(function (item) {
+						if (item.indexOf('preview') === 0) {
+							preview = item.split('=')[1] || true;
+						}
+						if (item.indexOf('furl') === 0) {
+							furl = decodeURIComponent(item.split('=')[1]);
+						}
+					});
+				}
+				if (preview === 'false' || !preview) preview = false;
+				else preview = true;
 				$scope.state = {
-					preview: window.location.search.indexOf('preview') >= 0 ? true : false
+					preview: preview,
+					furl: furl
 				};
 				$scope.initEditor = function(editor, minder) {
 					// window.editor = editor;
