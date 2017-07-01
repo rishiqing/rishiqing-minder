@@ -25,6 +25,9 @@ angular.module('kityminderEditor')
 				scope.saveAs = function () {
 					editor.postMessage.sendCommand('save_as_minder');
 				}
+				scope.generatePlan = function () {
+					editor.postMessage.sendCommand('generate_plan_minder', minder.exportJson());
+				}
 				scope.uploadImage = function () {
 					var fileInput = $('#upload-km');
 					if (!fileInput.val()) {

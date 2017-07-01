@@ -380,7 +380,8 @@ angular.module('kityminderEditor')
 						'save': '保存',
 						'saveAs': '另存为',
 						'exportPNG': '导出PNG图片',
-						'exportFreemind': '导出Freemind格式'
+						'exportFreemind': '导出Freemind格式',
+						'generatePlan': '生成计划'
 					}
 				},
 				'popupcolor': {
