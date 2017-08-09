@@ -1,5 +1,5 @@
 angular.module('kityminderEditor')
-	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', '$http', function(config, minderService, revokeDialog, $http) {
+	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', '$http', 'util', function(config, minderService, revokeDialog, $http, util) {
 		return {
 			restrict: 'EA',
 			templateUrl: 'ui/directive/kityminderEditor/kityminderEditor.html',
@@ -31,12 +31,12 @@ angular.module('kityminderEditor')
 					if (window.minder && window.minder.getStatus() === 'readonly') window.minder.enable();
 				};
 
-				function getDataByUrl (url, callback) {
-					$http.get(url)
-					.then(function (result) {
-						callback(result.data);
-					})
-				}
+				// function getDataByUrl (url, callback) {
+				// 	$http.get(url)
+				// 	.then(function (result) {
+				// 		callback(result.data);
+				// 	})
+				// }
 
 				if (typeof(seajs) != 'undefined') {
 					/* global seajs */
@@ -62,15 +62,17 @@ angular.module('kityminderEditor')
 						window.editor.postMessage.onImportJson(function (data) {
 							editor.minder.importJson(data);
 						})
+
+						window.editor.postMessage.onOpenFileByUrl(function (data) {
+							util.openFileByUrl(data.url, data.contentType);
+						})
 						
 
 						window.minder = window.km = editor.minder;
 
 						if (scope.state.preview) {
 							window.minder.disable();
-							if (scope.state.furl) getDataByUrl(scope.state.furl, function (data) {
-								if (data && data.version && data.template) editor.minder.importJson(data);
-							});
+							if (scope.state.furl) util.previewByUrl(scope.state.furl);
 						}
 
 						scope.editor = editor;
@@ -95,14 +97,15 @@ angular.module('kityminderEditor')
 
 					if (scope.state.preview) {
 						window.minder.disable();
-						if (scope.state.furl) getDataByUrl(scope.state.furl, function (data) {
-							if (data && data.version && data.template) editor.minder.importJson(data);
-						});
+						if (scope.state.furl) util.previewByUrl(scope.state.furl);
 					}
 
 					window.editor.postMessage.onImportJson(function (data) {
 						editor.minder.importJson(data);
 					});
+					window.editor.postMessage.onOpenFileByUrl(function (data) {
+						util.openFileByUrl(data.url, data.contentType);
+					})
 
                     scope.config = config.get();
 

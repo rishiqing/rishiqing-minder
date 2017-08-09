@@ -1,8 +1,8 @@
 /*
 * @Author: qinyang
 * @Date:   2017-04-05 08:47:29
-* @Last Modified by:   qinyang
-* @Last Modified time: 2017-04-27 12:20:21
+* @Last Modified by:   qin yang
+* @Last Modified time: 2017-08-08 22:58:32
 */
 
 define(function (require, exports, module) {
@@ -24,7 +24,8 @@ define(function (require, exports, module) {
 		var DefaultCommand = {
 			ContentChange: 'content_change',
 			ImportJson: 'import_json',
-			InitData: 'init_data'
+			InitData: 'init_data',
+			OpenFileByUrl: 'open_file_by_url'
 		};
 
 		function sendData (data) {
@@ -55,6 +56,9 @@ define(function (require, exports, module) {
 				case prefix + DefaultCommand.ImportJson:
 					_onImportJson(data.data);
 					break;
+				case prefix + DefaultCommand.OpenFileByUrl:
+					_onOpenFileByUrl(data.data);
+					break;
 				default:
 					break;
 			}
@@ -72,12 +76,25 @@ define(function (require, exports, module) {
 			onImportJsonFnList.push(callback);
 		}
 
+		function _onOpenFileByUrl (data) {
+			onOpenFileByUrlFnList.forEach(function (fn) {
+				fn(data);
+			});
+		}
+
+		var onOpenFileByUrlFnList = [];
+
+		function onOpenFileByUrl (callback) {
+			onOpenFileByUrlFnList.push(callback);
+		}
+
 		this.postMessage = {
 			sendData: sendData,
 			sendCommand: sendCommand,
 			sendInitData: sendInitData,
 			DefaultCommand: DefaultCommand,
-			onImportJson: onImportJson
+			onImportJson: onImportJson,
+			onOpenFileByUrl: onOpenFileByUrl
 		};
 
 		minder.on('contentchange', function () {

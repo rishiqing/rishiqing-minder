@@ -375,12 +375,13 @@ angular.module('kityminderEditor')
 					'file': '文件',
 					'file_dropdown': {
 						'new': '新建',
-						'openInFile': '打开文件中的导图',
+						'openInFile': '打开云盘中的导图',
 						'uploadLocal': '上传本地导图',
 						'save': '保存',
 						'saveAs': '另存为',
 						'exportPNG': '导出PNG图片',
 						'exportFreemind': '导出Freemind格式',
+						'exportXmind': '导出xmind格式',
 						'generatePlan': '生成计划'
 					}
 				},
