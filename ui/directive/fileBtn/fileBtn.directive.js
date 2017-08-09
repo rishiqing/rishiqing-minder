@@ -52,10 +52,11 @@ angular.module('kityminderEditor')
 
 				scope.export = function (type) {
 					var options;
+					var _fileName = minder.getRoot().getText() || '未命名';
 					if (type === 'freemind') {
 						options = { 
 							download: true,
-							filename: minder.getRoot().getText() + '.mm'
+							filename: _fileName + '.mm'
 						};
 					} else if (type === 'png') {
 						options = {
@@ -64,12 +65,12 @@ angular.module('kityminderEditor')
 						};
 					} else if (type === 'xmind') {
 						options = {
-							filename: minder.getRoot().getText() + '.xmind'
+							filename: _fileName + '.xmind'
 						};
 					}
 					minder.exportData(type, options).then(function (data) {
 						if (type === 'png') {
-							util.downloadBase64(data, minder.getRoot().getText() + '.png');
+							util.downloadBase64(data, _fileName + '.png');
 						} else if (type === 'freemind') {
 							util.downloadText(data, options.filename);
 						} else if (type === 'xmind') {
