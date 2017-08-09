@@ -39,6 +39,14 @@ angular.module('kityminderEditor')
 		                	if (data) editor.postMessage.sendCommand('upload_local', data);
 		                })
 		            }
+		            if (/^.*\.(xmind)$/.test(fileInput.val())) {
+		                var file = fileInput[0].files[0];
+		                util.openXmind(file);
+		            }
+		            if (/^.*\.(mm)$/.test(fileInput.val())) {
+		                var file = fileInput[0].files[0];
+		                util.openFreemind(file);
+		            }
 		            fileInput.val('');
 				}
 
@@ -54,12 +62,18 @@ angular.module('kityminderEditor')
 							width: 300,
 							height: 300
 						};
+					} else if (type === 'xmind') {
+						options = {
+							filename: minder.getRoot().getText() + '.xmind'
+						};
 					}
 					minder.exportData(type, options).then(function (data) {
 						if (type === 'png') {
 							util.downloadBase64(data, minder.getRoot().getText() + '.png');
 						} else if (type === 'freemind') {
 							util.downloadText(data, options.filename);
+						} else if (type === 'xmind') {
+							saveAs(data, options.filename);
 						}
 					});
 				}
