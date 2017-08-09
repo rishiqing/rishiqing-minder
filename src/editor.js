@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
     require('./protocol/png');
     require('./protocol/freemind');
+    require('./protocol/xmind');
 
     /**
      * 运行时

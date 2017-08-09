@@ -14,6 +14,7 @@ define(function (require, exports, module) {
     };
 
     function processTopic(topic, obj) {
+        // console.log('topic', topic);
 
         //处理文本
         obj.data = {

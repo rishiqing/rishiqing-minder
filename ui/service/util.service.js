@@ -1,5 +1,5 @@
 angular.module('kityminderEditor')
-	.service('util', function () {
+	.service('util', function ($http) {
 		var utf8_decode = function (utftext) {
 			var string = "";
 		    var i = 0;
@@ -55,15 +55,12 @@ angular.module('kityminderEditor')
 				ia[i] = bytes.charCodeAt(i);
 			}
 			var image = new Blob([ab], { type: type });
-			var url = URL.createObjectURL(image);
-
-			downloadByUrl(url, fileName);
+			saveAs(image, fileName);
 		}
 
 		var downloadText = function (text, fileName) {
 			var blob = new Blob([text]);
-			var url  = URL.createObjectURL(blob);
-			downloadByUrl(url, fileName);
+			saveAs(blob, fileName);
 		}
 
 		var readAsText = function (blob, callback) {
@@ -103,6 +100,73 @@ angular.module('kityminderEditor')
 			fileReader.readAsDataURL(blob);
 		}
 
+		var xmind = function (blob, callback) {
+			JSZip.loadAsync(blob).then(function (zip) {
+				var content = zip.file('content.xml') || zip.file('/content.xml');
+				return content.async('string');
+			}).then(function (content) {
+				if (callback) callback(null, content);
+			})
+		}
+
+		var freemind = function (blob, callback) {
+			readAsText(blob, function (err, content) {
+				if (callback) callback(null, content);
+			});
+		}
+
+		var openFileByUrl = function (url, contentType) {
+			$http.get(url, { responseType: 'arraybuffer' })
+			.then(function (result) {
+				var data = result.data;				
+				var blob = new Blob([data]);
+				if (contentType === 'xmind') openXmind(blob);
+				if (contentType === 'mm') openFreemind(blob);
+			})
+		}
+
+		var openXmind = function (blob, preview) {
+			xmind(blob, function (err, content) {
+				var protocol = window.kityminder.data.getRegisterProtocol('xmind');
+				protocol.decode(content).then(function (data) {
+					if (preview) {
+						window.editor.minder.importJson({ root: data });
+					} else {
+						window.editor.postMessage.sendCommand('upload_local', { root: data });
+					}
+            	});
+			})
+		}
+
+		var openFreemind = function (blob, preview) {
+			freemind(blob, function (err, content) {
+				var protocol = window.kityminder.data.getRegisterProtocol('freemind');
+				protocol.decode(content).then(function (data) {
+					if (preview) {
+						window.editor.minder.importJson({ root: data });
+					} else {
+						window.editor.postMessage.sendCommand('upload_local', { root: data });
+					}
+            	});
+			})
+		}
+
+		var previewByUrl = function (url) {
+			var _url = new URL(url);
+			var pathname = _url.pathname;
+			$http.get(url, { responseType: 'arraybuffer' })
+			.then(function (result) {
+				var blob = new Blob([result.data]);
+				if (/\.xmind$/.test(pathname)) openXmind(blob, true);
+				else if (/\.mm$/.test(pathname)) openFreemind(blob, true);
+				else if (/\.km$/.test(pathname)) {
+					readAsJson(blob, function (err, data) {
+						window.editor.minder.importJson(data);
+					});
+				}
+			})
+		}
+
 		return {
 			convert_buffer_to_utf8: convert_buffer_to_utf8,
 			downloadBase64: downloadBase64,
@@ -110,7 +174,13 @@ angular.module('kityminderEditor')
 			readAsText: readAsText,
 			readAsJson: readAsJson,
 			readAsDataURL: readAsDataURL,
-			readAsBase64: readAsDataURL
+			readAsBase64: readAsDataURL,
+			xmind: xmind,
+			freemind: freemind,
+			openFileByUrl: openFileByUrl,
+			openFreemind: openFreemind,
+			openXmind:openXmind,
+			previewByUrl: previewByUrl
 		}
 
 	});
