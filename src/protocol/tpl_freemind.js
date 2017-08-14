@@ -5,11 +5,21 @@ define(function (require, exports, module) {
     				+ '{{=freemindContent}}\n'
 					+ '</map>';
 	var topicTpl = '\n<node CREATED="{{=data.created}}" ID="ID_{{=data.id}}" MODIFIED="{{=data.created}}" '
-					+ 'TEXT="{{=data.text}}" POSITION="{{=data.position}}">'
+					+ 'TEXT="{{=data.text}}" POSITION="{{=data.position}}" {{=link}}>'
 					+ '{{=childrenContent}}'
 					+ '{{=priorityContent}}' // <icon BUILTIN="full-{data.priority}"/>
 					+ '{{=imageContent}}'
+					+ '{{=noteContent}}'
 					+ '</node>\n';
+	var noteTpl = '<richcontent TYPE="NOTE">'
+					+ '<html>'
+					+ '<head>'
+					+'</head>'
+					+ '<body>'
+					+ '<p>{{=note}}</p>'
+					+'</body>'
+					+'</html>'
+					+ '</richcontent>';
 	var priorityTpl = '<icon BUILTIN="full-{{=data.priority}}"/>';
 	var imageTpl = '<richcontent TYPE="NODE">'
         			+ '<html>'
@@ -27,12 +37,18 @@ define(function (require, exports, module) {
 		var _id = 1;
 		var _created = 1;
 		var format = function (node, position) {
-			var pt = '', it = '', ct = '', tt = ''; // pt = priorityTpl, it = imageTpl, ct = childrenTpl, t = topicTpl
+			var pt = '', it = '', ct = '', tt = '', nt = '', link = ''; // pt = priorityTpl, it = imageTpl, ct = childrenTpl, t = topicTpl, nt = noteTpl
 			if (node.data.priority) {
 				pt = tpl(priorityTpl, node);
 			}
 			if (node.data.image && !/^data\:/.test(node.data.image)) {
 				it = tpl(imageTpl, node);
+			}
+			if (node.data.note) {
+				nt = tpl(noteTpl, { note: node.data.note });
+			}
+			if (node.data.hyperlink) {
+				link = 'LINK="' + node.data.hyperlink + '"';
 			}
 			if (node.children && node.children.length) {
 				node.children.forEach(function (child, index) {
@@ -50,7 +66,9 @@ define(function (require, exports, module) {
 				},
 				childrenContent: ct,
 				priorityContent: pt,
-				imageContent: it
+				imageContent: it,
+				noteContent: nt,
+				link: link
 			})
 			return tt + '\n';
 		}
