@@ -9,6 +9,13 @@ define(function (require, exports, module) {
         obj.data = {
             text: topic.title
         };
+        if (topic['xlink:href']) {
+            obj.data.hyperlink = topic['xlink:href'];
+            obj.data.hyperlinkTitle = '';
+        }
+        if (topic.notes && topic.notes.plain) {
+            obj.data.note = topic.notes.plain;
+        }
         if (topic.marker_refs && topic.marker_refs.marker_ref && topic.marker_refs.marker_ref.marker_id) {
             var marker_id = topic.marker_refs.marker_ref.marker_id;
             if (marker_id.indexOf('priority') === 0) {
@@ -18,15 +25,19 @@ define(function (require, exports, module) {
                 obj.data.progress = progressList.indexOf(marker_id) + 1;
             }
         }
-        if (topic.children && topic.children.topics && topic.children.topics.topic) {
-            var children = topic.children.topics.topic;
-            if (children.length > 0) {
-                obj.children = [];
-                for (i in children) {
-                    obj.children.push({});
-                    processTopic(children[i], obj.children[i]);
+        if (topic.children && topic.children.topics) {
+            var topics = topic.children.topics;
+            if (!Array.isArray(topics)) topics = [topics];
+            topics.forEach(function (wrap) {
+                if (wrap.type === 'attached') {
+                    if (!obj.children) obj.children = [];
+                    var children = Array.isArray(wrap.topic) ? wrap.topic : [wrap.topic];
+                    for (i in children) {
+                        obj.children.push({});
+                        processTopic(children[i], obj.children[i]);
+                    }
                 }
-            }
+            });
         }
     }
 
