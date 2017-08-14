@@ -14,12 +14,22 @@ define(function (require, exports, module) {
     };
 
     function processTopic(topic, obj) {
-        // console.log('topic', topic);
-
         //处理文本
         obj.data = {
             text: topic.TEXT
         };
+        if (topic.richcontent) {
+            var _rich = Array.isArray(topic.richcontent) ? topic.richcontent : [topic.richcontent];
+            _rich.forEach(function (rich) {
+                var div = document.createElement('div');
+                $(div).html(rich.html);
+                if (rich.type === 'node') {
+                    obj.data.text = $.trim($(div).text());
+                } else if (rich.type === 'note') {
+                    obj.data.note = $.trim($(div).text());
+                }
+            });
+        }
         var i;
 
         // 处理标签

@@ -50,12 +50,14 @@ define(function (require, exports, module) {
 					+ '<file-entry full-path="Thumbnails/" media-type=""/>'
 					+ '<file-entry full-path="Thumbnails/thumbnail.png" media-type="image/png"/>'
 					+ '</manifest>';
-	var topicTpl = '<topic id="{{=data.id}}" structure-class="org.xmind.ui.map.clockwise" timestamp="{{=data.timestamp}}">'
+	var topicTpl = '<topic id="{{=data.id}}" structure-class="org.xmind.ui.map.clockwise" timestamp="{{=data.timestamp}}" {{=xlink}}>'
     				+ '<title>{{=data.text}}</title>'
     				+ '{{=markerRef}}'
     				+ '{{=image}}'
     				+ '{{=children}}'
+    				+ '{{=notes}}'
 					+ '</topic>';
+	var notesTpl = '<notes><plain>{{=note}}</plain></notes>';
 	var markerRef = '<marker-refs>'
         			+ '{{=markerId}}'
     				+ '</marker-refs>';
@@ -66,6 +68,7 @@ define(function (require, exports, module) {
             		+ '{{=topic}}'
         			+ '</topics>'
     				+ '</children>';
+   	var xlinkTpl = 'xlink:href="{{=link}}"';
 
     var progressList = ['task-start', 'task-oct', 'task-quarter', 'task-3oct',
         'task-half', 'task-5oct', 'task-3quar', 'task-7oct', 'task-done'];
@@ -81,7 +84,7 @@ define(function (require, exports, module) {
 	return module.exports = function (_node) {
 		var template = '';
 		var format = function (node) {
-			var mt = '', it = '', ct = '', tt = ''; // pt = markerTpl, it = imageTpl, ct = childrenTpl, t = topicTpl
+			var mt = '', it = '', ct = '', tt = '', xlt = '', nt = ''; // pt = markerTpl, it = imageTpl, ct = childrenTpl, t = topicTpl, xlt = xlinkTpl, nt = noteTpl
 			var mdt = ''; // mdt = markerIdTpc
 			var data = node.data;
 			if (data.progress) {
@@ -93,6 +96,12 @@ define(function (require, exports, module) {
 			if (mdt) mt = tpl(markerRef, { markerId: mdt });
 			if (data.image && !/^data\:/.test(data.image)) {
 				it = tpl(imageTpl, node);
+			}
+			if (data.hyperlink) {
+				xlt = tpl(xlinkTpl, { link: data.hyperlink });
+			}
+			if (data.note) {
+				nt = tpl(notesTpl, { note: data.note });
 			}
 			if (node.children && node.children.length) {
 				var _ct = '';
@@ -113,7 +122,9 @@ define(function (require, exports, module) {
 				},
 				markerRef: mt,
 				children: ct,
-				image: it
+				image: it,
+				xlink: xlt,
+				notes: nt
 			})
 			return tt + '\n';
 
