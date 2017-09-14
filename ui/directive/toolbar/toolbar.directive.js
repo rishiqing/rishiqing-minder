@@ -5,7 +5,8 @@ angular.module('kityminderEditor')
 			templateUrl: 'ui/directive/toolbar/toolbar.html',
 			scope: {
 				minder: '=toolbar',
-				editor: '='
+				editor: '=',
+				state: '='
 			},
 			link: function (scope) {
 			}

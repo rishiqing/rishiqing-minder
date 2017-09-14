@@ -372,17 +372,19 @@ angular.module('kityminderEditor')
 					'selectlevel': '选择同级节点',
 					'selectpath': '选择路径',
 					'selecttree': '选择子树',
-					'file': '文件',
+					'file': '菜单',
 					'file_dropdown': {
 						'new': '新建',
-						'openInFile': '打开云盘中的导图',
-						'uploadLocal': '上传本地导图',
+						'openInFile': '打开云盘中的文件',
+						'uploadLocal': '打开本地文件',
 						'save': '保存',
+						'rename': '重命名',
 						'saveAs': '另存为',
 						'exportPNG': '导出PNG图片',
 						'exportFreemind': '导出Freemind格式',
 						'exportXmind': '导出xmind格式',
-						'generatePlan': '生成计划'
+						'generatePlan': '生成计划',
+						'exportMind': '导出思维导图'
 					}
 				},
 				'popupcolor': {

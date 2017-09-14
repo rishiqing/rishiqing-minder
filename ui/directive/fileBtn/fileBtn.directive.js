@@ -1,5 +1,5 @@
 angular.module('kityminderEditor')
-	.directive('fileBtn', function (util) {
+	.directive('fileBtn', function (util, rModal) {
 		return {
 			restrict: 'E',
 			templateUrl: 'ui/directive/fileBtn/fileBtn.html',
@@ -28,6 +28,9 @@ angular.module('kityminderEditor')
 				scope.generatePlan = function () {
 					editor.postMessage.sendCommand('generate_plan_minder', minder.exportJson());
 				}
+				scope.rename = function () {
+					editor.postMessage.sendCommand('rename');
+				}
 				scope.uploadImage = function () {
 					var fileInput = $('#upload-km');
 					if (!fileInput.val()) {
@@ -50,33 +53,18 @@ angular.module('kityminderEditor')
 		            fileInput.val('');
 				}
 
-				scope.export = function (type) {
-					var options;
-					var _fileName = minder.getRoot().getText() || '未命名';
-					if (type === 'freemind') {
-						options = { 
-							download: true,
-							filename: _fileName + '.mm'
-						};
-					} else if (type === 'png') {
-						options = {
-							width: 300,
-							height: 300
-						};
-					} else if (type === 'xmind') {
-						options = {
-							filename: _fileName + '.xmind'
-						};
-					}
-					minder.exportData(type, options).then(function (data) {
-						if (type === 'png') {
-							util.downloadBase64(data, _fileName + '.png');
-						} else if (type === 'freemind') {
-							util.downloadText(data, options.filename);
-						} else if (type === 'xmind') {
-							saveAs(data, options.filename);
-						}
-					});
+				scope.export = function () {
+					rModal.open({
+                        animation: true,
+                        templateUrl: 'ui/dialog/export/export.tpl.html',
+                        controller: 'export.ctrl',
+                        size: 'md',
+                        resolve: {
+                            minder: function () {
+                                return scope.minder;
+                            }
+                        }
+                    });
 				}
 			}
 		};
