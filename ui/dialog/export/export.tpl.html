@@ -1,0 +1,14 @@
+<div class="export-dialog r-modal-shadow">
+    <div class="r-modal-header">
+        <h3 class="r-modal-title">导出脑图</h3>
+        <r-modal-close></r-modal-close>
+    </div>
+    <div class="r-modal-body">
+        <ul class="export-list">
+        	<li ng-repeat="item in typeList" ng-click="export(item.type)">
+        		<i class="{{ item.icon }}"></i>
+        		<span class="name">{{ item.name }}</span>
+        	</li>
+        </ul>
+    </div>
+</div>

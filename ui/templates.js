@@ -22,7 +22,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/fileBtn/fileBtn.html',
-    "<div class=\"km-btn-group dropdown file-btn\" is-open=\"isopen\" dropdown><div class=\"km-btn-primary dropdown-toggle\" dropdown-toggle ng-class=\"{'active': isopen}\"><span>{{ 'file' | lang:'ui' }}</span></div><ul class=\"dropdown-menu\"><li ng-click=\"new()\"><a href=\"javascript:;\">{{ 'new' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"openInFile()\"><a href=\"javascript:;\">{{ 'openInFile' | lang:'ui/file_dropdown' }}</a></li><li><a for=\"upload-km\" href=\"javascript:;\">{{ 'uploadLocal' | lang:'ui/file_dropdown' }} <input type=\"file\" id=\"upload-km\" name=\"upload-km\" class=\"upload-km\" accept=\".km,.mm,.xmind\" onchange=\"angular.element(this).scope().uploadImage()\"></a></li><li class=\"divider\"></li><li ng-click=\"save()\"><a href=\"javascript:;\">{{ 'save' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"saveAs()\"><a href=\"javascript:;\">{{ 'saveAs' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"generatePlan()\"><a href=\"javascript:;\">{{ 'generatePlan' | lang:'ui/file_dropdown' }}</a></li><li class=\"divider\"></li><li ng-click=\"export('png')\"><a href=\"javascript:;\">{{ 'exportPNG' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"export('freemind')\"><a href=\"javascript:;\">{{ 'exportFreemind' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"export('xmind')\"><a href=\"javascript:;\">{{ 'exportXmind' | lang:'ui/file_dropdown' }}</a></li></ul></div>"
+    "<div class=\"km-btn-group dropdown file-btn\" is-open=\"isopen\" dropdown><div class=\"km-btn-primary dropdown-toggle\" dropdown-toggle ng-class=\"{'active': isopen}\"><i class=\"icon-menu\"></i> <span>{{ 'file' | lang:'ui' }}</span></div><ul class=\"dropdown-menu\"><li ng-click=\"new()\"><a href=\"javascript:;\">{{ 'new' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"openInFile()\"><a href=\"javascript:;\">{{ 'openInFile' | lang:'ui/file_dropdown' }}</a></li><li><a for=\"upload-km\" href=\"javascript:;\">{{ 'uploadLocal' | lang:'ui/file_dropdown' }} <input type=\"file\" id=\"upload-km\" name=\"upload-km\" class=\"upload-km\" accept=\".km,.mm,.xmind\" onchange=\"angular.element(this).scope().uploadImage()\"></a></li><li class=\"divider\"></li><li ng-click=\"save()\"><a href=\"javascript:;\">{{ 'save' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"rename()\"><a href=\"javascript:;\">{{'rename' | lang:'ui/file_dropdown'}}</a></li><li ng-click=\"saveAs()\"><a href=\"javascript:;\">{{ 'saveAs' | lang:'ui/file_dropdown' }}</a></li><li class=\"divider\"></li><li ng-click=\"generatePlan()\"><a href=\"javascript:;\">{{ 'generatePlan' | lang:'ui/file_dropdown' }}</a></li><li ng-click=\"export()\"><a href=\"javascript:;\">{{'exportMind' | lang:'ui/file_dropdown'}}</a></li></ul></div>"
   );
 
 
@@ -32,7 +32,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/fullScreen/fullScreen.html',
-    "<div class=\"full-screen\"><div ng-click=\"toggleIcon()\" ng-class=\"{'icons2-full_screen_out': out, 'icons2-full_screen_in': in}\"></div></div>"
+    "<div class=\"km-btn-group\"><div class=\"km-btn-item full-screen\" ng-click=\"toggleIcon()\"><i ng-class=\"{'icons2-full_screen_out': out, 'icons2-full_screen_in': in}\"></i></div></div>"
   );
 
 
@@ -47,7 +47,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/kityminderEditor/kityminderEditor.html',
-    "<div class=\"minder-editor-container\"><div class=\"toolbar\" toolbar=\"minder\" editor=\"editor\" ng-if=\"minder\"></div><div search-box minder=\"minder\" ng-if=\"minder\"></div><div class=\"minder-editor\"></div><div note-editor minder=\"minder\" ng-if=\"minder\"></div><div class=\"note-previewer\" note-previewer ng-if=\"minder\"></div><div class=\"navigator\" navigator minder=\"minder\" ng-if=\"minder\"></div></div>"
+    "<div class=\"minder-editor-container\"><div class=\"toolbar\" toolbar=\"minder\" editor=\"editor\" state=\"state\" ng-if=\"minder\"></div><div search-box minder=\"minder\" ng-if=\"minder\"></div><div class=\"minder-editor\"></div><div note-editor minder=\"minder\" ng-if=\"minder\"></div><div class=\"note-previewer\" note-previewer ng-if=\"minder\"></div><div class=\"navigator\" navigator minder=\"minder\" ng-if=\"minder\"></div></div>"
   );
 
 
@@ -157,7 +157,7 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
 
   $templateCache.put('ui/directive/toolbar/toolbar.html',
-    "<file-btn minder=\"minder\" editor=\"editor\"></file-btn><span class=\"vertical-divider\"></span><undo-redo editor=\"editor\"></undo-redo><span class=\"vertical-divider\"></span><append-node minder=\"minder\"></append-node><span class=\"vertical-divider\"></span><hyper-link minder=\"minder\"></hyper-link><image-btn minder=\"minder\" editor=\"editor\"></image-btn><note-btn minder=\"minder\"></note-btn><sign-btn minder=\"minder\"></sign-btn><span class=\"vertical-divider\"></span><pallet-btn minder=\"minder\"></pallet-btn><span class=\"vertical-divider\"></span><font-operator minder=\"minder\" class=\"inline-directive\"></font-operator>"
+    "<file-btn minder=\"minder\" editor=\"editor\"></file-btn><span class=\"vertical-divider\"></span><undo-redo editor=\"editor\"></undo-redo><span class=\"vertical-divider\"></span><append-node minder=\"minder\"></append-node><span class=\"vertical-divider\"></span><hyper-link minder=\"minder\"></hyper-link><image-btn minder=\"minder\" editor=\"editor\"></image-btn><note-btn minder=\"minder\"></note-btn><sign-btn minder=\"minder\"></sign-btn><span class=\"vertical-divider\"></span><font-operator minder=\"minder\" class=\"inline-directive\"></font-operator><span class=\"vertical-divider\"></span><pallet-btn minder=\"minder\"></pallet-btn><full-screen minder=\"minder\" ng-if=\"state.needFullScreen\"></full-screen>"
   );
 
 
@@ -168,6 +168,11 @@ angular.module('kityminderEditor').run(['$templateCache', function($templateCach
 
   $templateCache.put('ui/directive/undoRedo/undoRedo.html',
     "<div class=\"km-btn-group\"><div class=\"km-btn-item\" ng-disabled=\"editor.history.hasUndo() == false\" ng-click=\"editor.history.hasUndo() == false || editor.history.undo();\" tooltip-placement=\"bottom\" tooltip=\"{{ 'undo' | lang:'ui' }}\"><i class=\"icons2-revoke\"></i></div><div class=\"km-btn-item\" ng-disabled=\"editor.history.hasRedo() == false\" ng-click=\"editor.history.hasRedo() == false || editor.history.redo()\" tooltip-placement=\"bottom\" tooltip=\"{{ 'redo' | lang:'ui' }}\"><i class=\"icons2-redo\"></i></div></div>"
+  );
+
+
+  $templateCache.put('ui/dialog/export/export.tpl.html',
+    "<div class=\"export-dialog r-modal-shadow\"><div class=\"r-modal-header\"><h3 class=\"r-modal-title\">导出脑图</h3><r-modal-close></r-modal-close></div><div class=\"r-modal-body\"><ul class=\"export-list\"><li ng-repeat=\"item in typeList\" ng-click=\"export(item.type)\"><i class=\"{{ item.icon }}\"></i> <span class=\"name\">{{ item.name }}</span></li></ul></div></div>"
   );
 
 
