@@ -116,6 +116,7 @@ module.exports = function(grunt) {
 		                'lib/jquery.xml2json.js',
 		                'lib/jquery.md5.js',
 		                'lib/FileSaver.min.js',
+		                'lib/placeholder.js',
 		                'bower_components/bootstrap/dist/js/bootstrap.js',
 		                'bower_components/angular/angular.js',
 		                'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',

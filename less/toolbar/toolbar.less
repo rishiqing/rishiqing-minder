@@ -74,6 +74,9 @@
     opacity: 1;
     color: #8C8C8C;
     font-size: 14px;
+    i + * { // i 一般都是字符图标, 和字符图标相邻的元素，都默认加一个margin-left
+        margin-left: 8px;
+    }
 }
 
 .km-btn-item-second {
@@ -87,4 +90,10 @@
         display: inline-block !important;
         vertical-align: middle;
     }
+}
+.km-btn-block {
+    display: block;
+    background: #6BC859;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.23);
+    border-radius: 2px;
 }

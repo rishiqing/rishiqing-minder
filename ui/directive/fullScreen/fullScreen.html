@@ -1,5 +1,9 @@
 <div class="km-btn-group">
-	<div class="km-btn-item full-screen" ng-click="toggleIcon()">
+	<div class="km-btn-item full-screen"
+		tooltip-placement="bottom"
+        tooltip-append-to-body="true"
+        tooltip="{{ getTip() }}"
+		ng-click="toggleIcon()">
 		<i ng-class="{'icons2-full_screen_out': out, 'icons2-full_screen_in': in}"></i>
 	</div>
 </div>

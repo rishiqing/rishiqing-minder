@@ -3,8 +3,14 @@
 	margin: 0 auto;
 	margin-top: 50px;
 	background: #fff;
+    font-size: 12px;
+    color: #666;
+    .remove-image {
+        color: #FF7A7A;
+    }
 	.r-modal-body {
 	    padding: 0px;
+        min-height: 398px;
 	    .nav-tabs {
 	    	font-size: 0;
 	    	padding: 11px 0;
@@ -43,20 +49,29 @@
 	        }
 	    }
 	}
+    .r-modal-footer {
+        border-top: none !important;
+    }
 }
 .image-preview {
     display: block;
-    max-width: 50%;
+    max-width: 80%;
 }
 
-#search-keyword {
-    width: 160px;
-    margin-right: 4px;
-}
 .key-word-form {
-    font-size: 0px;
-    label {
-        font-size: 14px;
+    padding-right: 90px;
+    position: relative;
+    padding-left: 50px;
+    .search-btn {
+        position: absolute;
+        right: 0;
+        top: 4px;
+    }
+    .search-tip {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        line-height: 40px;
     }
 }
 
