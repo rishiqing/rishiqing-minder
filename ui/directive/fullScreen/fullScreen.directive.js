@@ -16,6 +16,11 @@ angular.module('kityminderEditor')
 					scope.in = !scope.in;
 					editor.postMessage.sendCommand('full_screen', scope.out);
 				};
+				scope.getTip = function () {
+					if (scope.out) {
+						return '全屏';
+					} else return '退出全屏';
+				}
 			}
 		};
 	});
