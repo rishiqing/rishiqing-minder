@@ -116,7 +116,6 @@ module.exports = function(grunt) {
 		                'lib/jquery.xml2json.js',
 		                'lib/jquery.md5.js',
 		                'lib/FileSaver.min.js',
-		                'lib/placeholder.js',
 		                'bower_components/bootstrap/dist/js/bootstrap.js',
 		                'bower_components/angular/angular.js',
 		                'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -135,7 +134,8 @@ module.exports = function(grunt) {
 		                'bower_components/json-diff/json-diff.js',
 		                'bower_components/kityminder-core/dist/kityminder.core.min.js',
 		                'bower_components/color-picker/dist/color-picker.min.js',
-		                'bower_components/jszip/dist/jszip.js'
+		                'bower_components/jszip/dist/jszip.js',
+		                'lib/placeholder.js'
 	                ]
                 }
             }
