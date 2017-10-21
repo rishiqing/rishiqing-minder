@@ -33,8 +33,10 @@ define(function (require, exports, module) {
                     if (!obj.children) obj.children = [];
                     var children = Array.isArray(wrap.topic) ? wrap.topic : [wrap.topic];
                     for (i in children) {
-                        obj.children.push({});
-                        processTopic(children[i], obj.children[i]);
+                        if (children[i]) {
+                            obj.children.push({});
+                            processTopic(children[i], obj.children[i]);
+                        }
                     }
                 }
             });
