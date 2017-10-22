@@ -1,0 +1,36 @@
+[class^="icons4-"], [class*=" icons4-"] {
+    background-image: url(images/icons4.png);
+    background-repeat: no-repeat;
+    background-size: 87px 66px;
+    display: inline-block;
+}
+
+.stitches-icons4(@x: 0, @y: 0, @width: 0, @height: 0) {
+    background-position: @x / 2 @y / 2;
+    width: @width / 2;
+    height: @height / 2;
+}
+
+.icons4-freemind {
+    .stitches-icons4(0, 0, 58px, 66px);
+}
+
+.icons4-km {
+    .stitches-icons4(-58px, 0, 58px, 66px);
+}
+
+.icons4-markdown {
+    .stitches-icons4(0, -66px, 58px, 66px);
+}
+
+.icons4-png {
+    .stitches-icons4(-58px, -66px, 58px, 66px);
+}
+
+.icons4-svg {
+    .stitches-icons4(-116px, 0, 58px, 66px);
+}
+
+.icons4-xmind {
+    .stitches-icons4(-116px, -66px, 58px, 66px);
+}

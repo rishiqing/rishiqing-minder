@@ -19,7 +19,7 @@ define(function(require, exports, module) {
             '复制:Ctrl+C:copy',
             '剪切:Ctrl+X:cut',
             '粘贴:Ctrl+V:paste',
-            '删除:Delete|Backspace:RemoveNode'
+            '删除:Del|Backspace:RemoveNode'
         ];
 
         var AppendLock = 0;

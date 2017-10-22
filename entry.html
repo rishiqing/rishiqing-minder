@@ -61,6 +61,7 @@
 <script src="lib/jquery.xml2json.js"></script>
 <script src="lib/jquery.md5.js"></script>
 <script src="lib/FileSaver.min.js"></script>
+<script src="lib/placeholder.js"></script>
 <!-- /build -->
 
 <!-- build:remove dev -->
@@ -84,23 +85,26 @@
 			})
 			.controller('MainController', function($scope) {
 				var search = window.location.search.split('?')[1];
-				var preview = false, furl = '';
+				var queryData = {};
+				var preview = false, furl = '', needFullScreen = false;
 				if (search) {
 					var list = search.split('&');
 					list.forEach(function (item) {
-						if (item.indexOf('preview') === 0) {
-							preview = item.split('=')[1] || true;
-						}
-						if (item.indexOf('furl') === 0) {
-							furl = decodeURIComponent(item.split('=')[1]);
-						}
+						var l = item.split('=');
+						queryData[l[0]] = l[1];
 					});
 				}
-				if (preview === 'false' || !preview) preview = false;
+				if (queryData.preview === 'false' || !queryData.preview) preview = false;
 				else preview = true;
+				if (queryData.needFullScreen === 'false' || !queryData.needFullScreen) needFullScreen = false;
+				else needFullScreen = true;
+				if (queryData.furl) {
+					furl = decodeURIComponent(queryData.furl);
+				}
 				$scope.state = {
 					preview: preview,
-					furl: furl
+					furl: furl,
+					needFullScreen: needFullScreen
 				};
 				$scope.initEditor = function(editor, minder) {
 					// window.editor = editor;

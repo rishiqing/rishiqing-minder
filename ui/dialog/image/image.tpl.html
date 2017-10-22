@@ -7,11 +7,9 @@
         <tabset>
             <tab heading="图片搜索">
                 <form class="form-inline key-word-form">
-                    <div class="form-group">
-                        <label for="search-keyword">关键词：</label>
-                        <input type="text" class="form-control" ng-model="data.searchKeyword2" id="search-keyword" placeholder="请输入搜索的关键词">
-                    </div>
-                    <button class="btn r-btn-primary" ng-click="searchImage()">百度一下</button>
+                    <span for="search-keyword" class="search-tip">关键词：</span>
+                    <input type="text" class="r-input" ng-model="data.searchKeyword2" id="search-keyword" placeholder="请输入搜索的关键词">
+                    <button class="btn r-btn-primary search-btn" ng-click="searchImage()">百度一下</button>
                 </form>
                 <div class="search-result" id="search-result">
                     <ul>
@@ -21,25 +19,26 @@
                         </li>
                     </ul>
                 </div>
+                <a href="javascript:;" ng-click="deleteCurrent()" class="remove-image">移除已有图片</a>
             </tab>
             <tab heading="外链图片">
                 <form>
                     <div class="form-group" ng-class="{true: 'has-success', false: 'has-error'}[urlPassed]">
-                        <label for="image-url">链接地址：</label>
+                        <span for="image-url">链接地址：</span>
                         <input type="text"
-                               class="form-control"
+                               class="r-input"
                                ng-model="data.url"
                                ng-blur="urlPassed = data.R_URL.test(data.url)"
                                ng-focus="this.value = data.url"
                                ng-keydown="shortCut($event)"
-                               id="image-url"
-                               placeholder="必填：以 http(s):// 开头">
+                               placeholder="以 http(s):// 开头" 
+                               id="image-url">
                     </div>
                     <div class="form-group">
-                        <label for="image-preview">图片预览：</label>
                         <img class="image-preview" id="image-preview" ng-src="{{ data.url }}" alt="{{ data.title }}"/>
                     </div>
                 </form>
+                <a href="javascript:;" ng-click="deleteCurrent()" class="remove-image">移除已有图片</a>
             </tab>
             <tab heading="上传图片" active="true">
                 <form>
@@ -49,16 +48,14 @@
                         <label for="upload-image" class="btn r-btn-primary">上传文件</label>
                     </div>
                     <div class="form-group">
-                        <label for="image-preview">图片预览：</label>
                         <img class="image-preview" id="image-preview" ng-src="{{ data.url }}" title="{{ data.title }}" alt="{{ data.title }}"/>
                     </div>
                 </form>
+                <a href="javascript:;" ng-click="deleteCurrent()" class="remove-image">移除已有图片</a>
             </tab>
         </tabset>
     </div>
     <div class="r-modal-footer">
-        <button class="btn r-btn-danger pull-left" ng-click="deleteCurrent()">移除已有图片</button>
-        <button class="btn r-btn-secondary-outline" ng-click="cancel()">取消</button>
-        <button class="btn r-btn-primary" ng-click="ok()">确定</button>
+        <button class="btn r-btn-primary btn-block btn-xxl" ng-click="ok()">确定</button>
     </div>
 </div>

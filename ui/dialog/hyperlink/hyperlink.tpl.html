@@ -5,26 +5,29 @@
   </div>
   <div class="r-modal-body">
     <form>
-      <div class="form-group" id="link-url-wrap" ng-class="{true: 'has-success', false: 'has-error'}[urlPassed]">
-          <label for="link-url">链接地址：</label>
+      <div class="form-group" id="link-url-wrap">
+          <span for="link-url">链接地址：</span>
+          <a href="javascript:;" ng-click="deleteCurrent()" class="pull-right remove-link">移除已有链接</a>
           <input type="text"
-                 class="form-control"
                  ng-model="url"
                  ng-blur="urlPassed = R_URL.test(url)"
                  ng-focus="this.value = url"
                  ng-keydown="shortCut($event)"
-                 id="link-url"
-                 placeholder="必填：以 http(s):// 或 ftp:// 开头">
+                 class="r-input" 
+                 placeholder="以http(s):// 或 ftp:// 开头" 
+                 id="link-url">
       </div>
-      <div class="form-group" ng-class="{'has-success' : titlePassed}">
-          <label for="link-title">提示文本：</label>
-          <input type="text" class="form-control" ng-model="title" ng-blur="titlePassed = true" id="link-title" placeholder="选填：鼠标在链接上悬停时提示的文本">
+      <div class="form-group">
+          <span for="link-title">提示文本：</span>
+          <input type="text" 
+                  ng-model="title" 
+                  ng-blur="titlePassed = true"
+                  class="r-input"
+                  id="link-title">
       </div>
     </form>
   </div>
   <div class="r-modal-footer">
-    <button class="btn r-btn-danger pull-left" ng-click="deleteCurrent()">移除已有链接</button>
-    <button class="btn r-btn-secondary-outline" ng-click="cancel()">取消</button>
-    <button class="btn r-btn-primary" ng-click="ok()">确定</button>
+    <button class="btn r-btn-primary btn-block btn-xxl" ng-click="ok()">确定</button>
   </div>
 </div>
