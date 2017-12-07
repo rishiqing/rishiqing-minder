@@ -16,6 +16,8 @@ define(function(require, exports, module) {
         var minder = this.minder;
         var me = this;
 
+        var is_disable_by_readonly = false;
+
         // 接收事件的 div
         var element = document.createElement('div');
         element.contentEditable = true;
@@ -33,6 +35,7 @@ define(function(require, exports, module) {
         var receiver = {
             element: element,
             selectAll: function() {
+                if (is_disable_by_readonly) return;
                 // 保证有被选中的
                 if (!element.innerHTML) element.innerHTML = '&nbsp;';
                 var range = document.createRange();
@@ -82,6 +85,7 @@ define(function(require, exports, module) {
             minder.disable();
             editor.receiver.element.parentElement.removeChild(editor.receiver.element);
             editor.hotbox.$container.removeChild(editor.hotbox.$element);
+            is_disable_by_readonly = true;
         });
 
         // 侦听器，接收到的事件会派发给所有侦听器

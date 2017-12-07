@@ -43,7 +43,7 @@
     "marked": "git://github.com/chjj/marked.git#master",
     "kity": "~2.0.0",
     "hotbox": "~1.0.2",
-    "kityminder-core": "~1.4.3",
+    "kityminder-core": "~1.4.45",
     "color-picker": "~1.0.2",
     "jszip": "~3.1.3"
   },
