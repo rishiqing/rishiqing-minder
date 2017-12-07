@@ -71,7 +71,13 @@ angular.module('kityminderEditor')
 						window.minder = window.km = editor.minder;
 
 						if (scope.state.preview) {
-							window.minder.disable();
+							// fire('readonly') 比 disable()好用，原因是因为，如果只用minder.disable()，当选中某个节点的时候
+							// 在键盘输入，一样会导致节点改变，在移动端，就会导致弹起键盘
+							// 具体代码看 src/runtime/receiver.js line: 80 附近
+							// receiver里面虽然监听了readonly, 但是disable方法并不会触发readonly事件
+							// 导致虽然表面上看是readonly状态，但是receiver还是处在可以编辑的状态
+							window.minder.fire('readonly');
+							window.minder.execCommand('hand'); // 预览的时候，默认启用拖动
 							if (scope.state.furl) util.previewByUrl(scope.state.furl);
 						}
 
@@ -96,7 +102,8 @@ angular.module('kityminderEditor')
 					window.minder = scope.minder = editor.minder;
 
 					if (scope.state.preview) {
-						window.minder.disable();
+						window.minder.fire('readonly');
+						window.minder.execCommand('hand'); // 预览的时候，默认启用拖动
 						if (scope.state.furl) util.previewByUrl(scope.state.furl);
 					}
 
