@@ -13,6 +13,8 @@ angular.module('kityminderEditor')
 			link: function(scope, element, attributes) {
 				var $minderEditor = element.children('.minder-editor')[0];
 
+				scope.isMobile = util.isMobile();
+
 				function onInit(editor, minder) {
 					scope.onInit({
 						editor: editor,
