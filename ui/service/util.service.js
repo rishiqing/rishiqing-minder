@@ -167,6 +167,24 @@ angular.module('kityminderEditor')
 			})
 		}
 
+		var _isMobile = function () {
+			return window.navigator.userAgent.indexOf('Mobile') > -1;
+		}
+
+		var isIOS = function () {
+			var p = navigator.platform;
+			var isMac = p.indexOf('Mac') === 0;
+			return isMac && _isMobile();
+		}
+
+		var isAndroid = function () {
+			return /Android (\d+\.\d+)/.test(window.navigator.userAgent);
+		}
+
+		var isMobile = function () {
+			return isIOS() || isAndroid() || _isMobile();
+		}
+
 		return {
 			convert_buffer_to_utf8: convert_buffer_to_utf8,
 			downloadBase64: downloadBase64,
@@ -180,7 +198,8 @@ angular.module('kityminderEditor')
 			openFileByUrl: openFileByUrl,
 			openFreemind: openFreemind,
 			openXmind:openXmind,
-			previewByUrl: previewByUrl
+			previewByUrl: previewByUrl,
+			isMobile: isMobile
 		}
 
 	});

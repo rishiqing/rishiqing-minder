@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>日事清-思维导图</title>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = no">
 	<link href="//res-front-cdn.timetask.cn/common/img/web-icon/icon.png" type="image/x-icon" rel="shortcut icon">
 	<!-- build:remove dist -->
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -80,43 +80,43 @@
 
 <script>
 	angular.module('kityminderDemo', ['kityminderEditor'])
-			.config(function (configProvider) {
-				configProvider.set('imageUpload', '../server/imageUpload.php');
-			})
-			.controller('MainController', function($scope) {
-				var search = window.location.search.split('?')[1];
-				var queryData = {};
-				var preview = false, furl = '', needFullScreen = false;
-				if (search) {
-					var list = search.split('&');
-					list.forEach(function (item) {
-						var l = item.split('=');
-						queryData[l[0]] = l[1];
-					});
-				}
-				if (queryData.preview === 'false' || !queryData.preview) preview = false;
-				else preview = true;
-				if (queryData.needFullScreen === 'false' || !queryData.needFullScreen) needFullScreen = false;
-				else needFullScreen = true;
-				if (queryData.furl) {
-					furl = decodeURIComponent(queryData.furl);
-				}
-				$scope.state = {
-					preview: preview,
-					furl: furl,
-					needFullScreen: needFullScreen
-				};
-				$scope.initEditor = function(editor, minder) {
-					// window.editor = editor;
-					// window.minder = minder;
-				};
-				$scope.enablePreview = function () {
-					$scope.state.preview = true;
-				};
-				$scope.disablePreview = function () {
-					$scope.state.preview = false;
-				};
-			});
+		.config(function (configProvider) {
+			configProvider.set('imageUpload', '../server/imageUpload.php');
+		})
+		.controller('MainController', function($scope, $rootScope) {
+			var search = window.location.search.split('?')[1];
+			var queryData = {};
+			var preview = false, furl = '', needFullScreen = false;
+			if (search) {
+				var list = search.split('&');
+				list.forEach(function (item) {
+					var l = item.split('=');
+					queryData[l[0]] = l[1];
+				});
+			}
+			if (queryData.preview === 'false' || !queryData.preview) preview = false;
+			else preview = true;
+			if (queryData.needFullScreen === 'false' || !queryData.needFullScreen) needFullScreen = false;
+			else needFullScreen = true;
+			if (queryData.furl) {
+				furl = decodeURIComponent(queryData.furl);
+			}
+			$scope.state = {
+				preview: preview,
+				furl: furl,
+				needFullScreen: needFullScreen
+			};
+			$scope.initEditor = function(editor, minder) {
+				// window.editor = editor;
+				// window.minder = minder;
+			};
+			$scope.enablePreview = function () {
+				$scope.state.preview = true;
+			};
+			$scope.disablePreview = function () {
+				$scope.state.preview = false;
+			};
+		});
 </script>
 
 </html>
