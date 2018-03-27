@@ -31,7 +31,7 @@ angular.module('kityminderEditor')
         $scope.export = function (type) {
             $modalInstance.close();
             var options;
-            var _fileName = minder.getRoot().getText() || '未命名';
+            var _fileName = minder.getRoot().getText().replace(/\n/g, '') || '未命名';
             if (type === 'km') {
                 util.downloadText(JSON.stringify(minder.exportJson()), _fileName + '.km');
                 return;
