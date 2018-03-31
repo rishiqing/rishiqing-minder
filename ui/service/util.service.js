@@ -154,7 +154,12 @@ angular.module('kityminderEditor')
 		var previewByUrl = function (url) {
 			var _url = new URL(url);
 			var pathname = _url.pathname;
-			$http.get(url, { responseType: 'arraybuffer' })
+			$http.get(url, {
+				responseType: 'arraybuffer',
+				headers: {
+					'Cache-Control': 'no-cache'
+				}
+			})
 			.then(function (result) {
 				var blob = new Blob([result.data]);
 				if (/\.xmind$/.test(pathname)) openXmind(blob, true);
