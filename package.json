@@ -49,7 +49,7 @@
     "load-grunt-tasks": "^3.1.0",
     "md5": "^2.2.1",
     "md5-file": "^3.1.1",
-    "rishiqing-deploy": "0.0.15",
+    "rishiqing-deploy": "1.0.4",
     "sync-request": "^4.0.2",
     "yargs": "^7.0.2"
   },
