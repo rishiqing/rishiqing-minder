@@ -85,9 +85,11 @@ angular.module('kityminderEditor')
 
 						scope.editor = editor;
 						scope.minder = minder;
-                        scope.config = config.get();
+            scope.config = config.get();
 
-                        //scope.minder.setDefaultOptions(scope.config);
+            scope.minder.setDefaultOptions({
+            	defaultTheme: scope.config.defaultTheme // 设置默认主题
+            });
 						scope.$apply();
 
 						window.editor.postMessage.sendInitData();
@@ -116,14 +118,16 @@ angular.module('kityminderEditor')
 						util.openFileByUrl(data.url, data.contentType);
 					})
 
-                    scope.config = config.get();
+          scope.config = config.get();
 
-                    //scope.minder.setDefaultOptions(config.getConfig());
+          scope.minder.setDefaultOptions({
+          	defaultTheme: scope.config.defaultTheme // 设置默认主题
+          });
 
-                    window.editor.postMessage.sendInitData();
+          window.editor.postMessage.sendInitData();
 
-                    onInit(editor, editor.minder);
-                }
+          onInit(editor, editor.minder);
+        }
 			}
 		}
 	}]);
