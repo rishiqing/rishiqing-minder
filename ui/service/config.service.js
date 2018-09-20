@@ -14,6 +14,8 @@ angular.module('kityminderEditor')
 			// 默认语言
 			defaultLang: 'zh-cn',
 
+      defaultTheme: 'fresh-blue-compat',
+
 			// 放大缩小比例
 			zoom: [10, 20, 30, 50, 80, 105, 120, 150, 200],
 
