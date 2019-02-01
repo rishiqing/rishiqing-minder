@@ -1,5 +1,5 @@
 angular.module('kityminderEditor')
-	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', '$http', 'util', function(config, minderService, revokeDialog, $http, util) {
+	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', '$http', 'util', function (config, minderService, revokeDialog, $http, util) {
 		return {
 			restrict: 'EA',
 			templateUrl: 'ui/directive/kityminderEditor/kityminderEditor.html',
@@ -10,7 +10,7 @@ angular.module('kityminderEditor')
 				enablePreview: '=',
 				state: '='
 			},
-			link: function(scope, element, attributes) {
+			link: function (scope, element, attributes) {
 				var $minderEditor = element.children('.minder-editor')[0];
 
 				scope.isMobile = util.isMobile();
@@ -32,21 +32,13 @@ angular.module('kityminderEditor')
 					scope.disablePreview();
 					if (window.minder && window.minder.getStatus() === 'readonly') window.minder.enable();
 				};
-
-				// function getDataByUrl (url, callback) {
-				// 	$http.get(url)
-				// 	.then(function (result) {
-				// 		callback(result.data);
-				// 	})
-				// }
-
-				if (typeof(seajs) != 'undefined') {
+				if (typeof (seajs) != 'undefined') {
 					/* global seajs */
 					seajs.config({
 						base: './src'
 					});
 
-					define('demo', function(require) {
+					define('demo', function (require) {
 						var Editor = require('editor');
 
 						var editor = window.editor = new Editor($minderEditor);
@@ -56,7 +48,7 @@ angular.module('kityminderEditor')
 								editor.minder.importJson(JSON.parse(window.localStorage.__dev_minder_content));
 							}
 
-							editor.minder.on('contentchange', function() {
+							editor.minder.on('contentchange', function () {
 								window.localStorage.__dev_minder_content = JSON.stringify(editor.minder.exportJson());
 							});
 						}
@@ -68,7 +60,7 @@ angular.module('kityminderEditor')
 						window.editor.postMessage.onOpenFileByUrl(function (data) {
 							util.openFileByUrl(data.url, data.contentType);
 						})
-						
+
 
 						window.minder = window.km = editor.minder;
 
@@ -85,20 +77,28 @@ angular.module('kityminderEditor')
 
 						scope.editor = editor;
 						scope.minder = minder;
-            scope.config = config.get();
+						scope.config = config.get();
 
-            scope.minder.setDefaultOptions({
-            	defaultTheme: scope.config.defaultTheme // 设置默认主题
-            });
+						scope.minder.setDefaultOptions({
+							defaultTheme: scope.config.defaultTheme // 设置默认主题
+						});
 						scope.$apply();
 
 						window.editor.postMessage.sendInitData();
+
+						// 在 toolbar 上面添加额外的padding
+						window.addAdditionalPaddingToToolbar = function() {
+							scope.toolbarAdditionalPadding = true
+						}
+						// 从 toolbar 上面移除额外的padding
+						window.removeAdditionalPaddingFromToolbar = function() {
+							scope.toolbarAdditionalPadding = false
+						}
 
 						onInit(editor, minder);
 					});
 
 					seajs.use('demo');
-
 				} else if (window.kityminder && window.kityminder.Editor) {
 					var editor = new kityminder.Editor($minderEditor);
 
@@ -118,16 +118,25 @@ angular.module('kityminderEditor')
 						util.openFileByUrl(data.url, data.contentType);
 					})
 
-          scope.config = config.get();
+					scope.config = config.get();
 
-          scope.minder.setDefaultOptions({
-          	defaultTheme: scope.config.defaultTheme // 设置默认主题
-          });
+					scope.minder.setDefaultOptions({
+						defaultTheme: scope.config.defaultTheme // 设置默认主题
+					});
 
-          window.editor.postMessage.sendInitData();
+					window.editor.postMessage.sendInitData();
 
-          onInit(editor, editor.minder);
-        }
+					// 在 toolbar 上面添加额外的padding
+					window.addAdditionalPaddingToToolbar = function() {
+						scope.toolbarAdditionalPadding = true
+					}
+					// 从 toolbar 上面移除额外的padding
+					window.removeAdditionalPaddingFromToolbar = function() {
+						scope.toolbarAdditionalPadding = false
+					}
+
+					onInit(editor, editor.minder);
+				}
 			}
 		}
 	}]);
