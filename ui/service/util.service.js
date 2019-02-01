@@ -102,10 +102,25 @@ angular.module('kityminderEditor')
 
 		var xmind = function (blob, callback) {
 			JSZip.loadAsync(blob).then(function (zip) {
-				var content = zip.file('content.xml') || zip.file('/content.xml');
-				return content.async('string');
-			}).then(function (content) {
-				if (callback) callback(null, content);
+				var type = 'json'
+				var content = zip.file('content.json') || zip.file('/content.json')
+				if (!content) {
+					content = zip.file('content.xml') || zip.file('/content.xml');
+					type = 'xml'
+				}
+				return content
+					.async('string')
+					.then(function (data) {
+						if (type === 'json') {
+							data = JSON.parse(data)
+						}
+						return {
+							content: data,
+							type: type
+						}
+					})
+			}).then(function (data) {
+				if (callback) callback(null, data);
 			})
 		}
 
@@ -126,9 +141,9 @@ angular.module('kityminderEditor')
 		}
 
 		var openXmind = function (blob, preview) {
-			xmind(blob, function (err, content) {
+			xmind(blob, function (err, data) {
 				var protocol = window.kityminder.data.getRegisterProtocol('xmind');
-				protocol.decode(content).then(function (data) {
+				protocol.decode(data).then(function (data) {
 					if (preview) {
 						window.editor.minder.importJson({ root: data });
 					} else {

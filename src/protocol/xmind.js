@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var progressList = ['task-start', 'task-oct', 'task-quarter', 'task-3oct',
         'task-half', 'task-5oct', 'task-3quar', 'task-7oct', 'task-done'];
 
-    function processTopic (topic, obj) {
+    function processXmlTopic (topic, obj) {
         obj.data = {
             text: topic.title
         };
@@ -35,7 +35,7 @@ define(function (require, exports, module) {
                     for (i in children) {
                         if (children[i]) {
                             obj.children.push({});
-                            processTopic(children[i], obj.children[i]);
+                            processXmlTopic(children[i], obj.children[i]);
                         }
                     }
                 }
@@ -43,10 +43,79 @@ define(function (require, exports, module) {
         }
     }
 
+    // 新版的xmind支持直接解压出json数据
+    function processJsonTopic(topic, obj) {
+        var data = {
+            text: topic.title
+        };
+        obj.data = data;
+        if (topic.href) {
+            data.hyperlink = topic.href;
+            data.hyperlinkTitle = '';
+        }
+        if (topic.notes && topic.notes.plan && topic.notes.plan.content) {
+            data.note = topic.notes.plan.content;
+        }
+        if (topic.markers && topic.markers.length) {
+            topic.markers.forEach(function(marker) {
+                if (marker.markerId.indexOf('priority') === 0) {
+                    data.priority = parseInt(marker.markerId.match(/\d+/)[0], 10);
+                    return;
+                }
+                if (marker.markerId.indexOf('task') === 0) {
+                    if (progressList.indexOf(marker.markerId) >= 0) {
+                        data.progress = progressList.indexOf(marker.markerId) + 1;
+                    }
+                }
+            })
+        }
+        if (
+            topic.children
+            && topic.children.attached
+            && topic.children.attached.length
+        ) {
+            obj.children = [];
+            topic.children.attached.forEach(function(child, index) {
+                obj.children.push({})
+                processJsonTopic(child, obj.children[index])
+            });
+        }
+    }
+
     function xml2km(xml) {
         var json = $.xml2json(xml);
         var result = {};
-        processTopic(json.sheet.topic, result);
+        processXmlTopic(json.sheet.topic, result);
+        return result;
+    }
+
+    function json2km(json) {
+        if (!Array.isArray(json)) json = [json];
+        var result = {};
+        // 如果只有一个画布
+        if (json.length === 1) {
+            processJsonTopic(json[0].rootTopic, result);
+        } else {
+            result.data = {
+                text: '多画布 xmind'
+            };
+            result.children = [];
+            for (var index in json) {
+                if (json[index]) {
+                    var child = {};
+                    result.children.push(child);
+                    child.data = {
+                        text: json[index].title
+                    };
+                    var rootTopic = json[index].rootTopic;
+                    if (rootTopic) {
+                        var child_child = {};
+                        child.children = [child_child];
+                        processJsonTopic(rootTopic, child_child);
+                    }
+                }
+            }
+        }
         return result;
     }
 
@@ -55,10 +124,15 @@ define(function (require, exports, module) {
         fileExtension: '.xmind',
         dataType: 'text',
 
-        decode: function(local) {
+        decode: function(data) {
             return new Promise(function(resolve, reject) {
                 try {
-                    resolve(xml2km(local));
+                    if (data.type === 'xml') {
+                        resolve(xml2km(data.content));
+                    }
+                    if (data.type === 'json') {
+                        resolve(json2km(data.content));
+                    }
                 } catch (e) {
                     reject(new Error('XML 文件损坏！'));
                 }
