@@ -67,7 +67,10 @@ angular.module('kityminderEditor')
 			var fileReader = new FileReader();
 			fileReader.onload = function (e) {
             	if (callback) callback(null, e.target.result);
-            }
+			}
+			fileReader.onerror = function(e) {
+				if (callback) callback(e)
+			}
 			fileReader.readAsText(blob);
 		}
 
@@ -121,11 +124,17 @@ angular.module('kityminderEditor')
 					})
 			}).then(function (data) {
 				if (callback) callback(null, data);
+			}).catch(function(error) {
+				if (callback) callback(error);
 			})
 		}
 
 		var freemind = function (blob, callback) {
 			readAsText(blob, function (err, content) {
+				if (err) {
+					if (callback) callback(err);
+					return;
+				}
 				if (callback) callback(null, content);
 			});
 		}
@@ -140,8 +149,12 @@ angular.module('kityminderEditor')
 			})
 		}
 
-		var openXmind = function (blob, preview) {
+		var openXmind = function (blob, preview, callback) {
 			xmind(blob, function (err, data) {
+				if (err) {
+					if (callback) callback(err);
+					return;
+				}
 				var protocol = window.kityminder.data.getRegisterProtocol('xmind');
 				protocol.decode(data).then(function (data) {
 					if (preview) {
@@ -149,12 +162,19 @@ angular.module('kityminderEditor')
 					} else {
 						window.editor.postMessage.sendCommand('upload_local', { root: data });
 					}
-            	});
+					if (callback) callback()
+				}, function(error) {
+					if (callback) callback(error)
+				});
 			})
 		}
 
-		var openFreemind = function (blob, preview) {
+		var openFreemind = function (blob, preview, callback) {
 			freemind(blob, function (err, content) {
+				if (err) {
+					if (callback) callback(err);
+					return;
+				}
 				var protocol = window.kityminder.data.getRegisterProtocol('freemind');
 				protocol.decode(content).then(function (data) {
 					if (preview) {
@@ -162,7 +182,10 @@ angular.module('kityminderEditor')
 					} else {
 						window.editor.postMessage.sendCommand('upload_local', { root: data });
 					}
-            	});
+					if (callback) callback();
+				}, function(error) {
+					if (callback) callback(err);
+				})
 			})
 		}
 
@@ -177,13 +200,20 @@ angular.module('kityminderEditor')
 			})
 			.then(function (result) {
 				var blob = new Blob([result.data]);
-				if (/\.xmind$/.test(pathname)) openXmind(blob, true);
-				else if (/\.mm$/.test(pathname)) openFreemind(blob, true);
-				else if (/\.km$/.test(pathname)) {
-					readAsJson(blob, function (err, data) {
-						window.editor.minder.importJson(data);
-					});
-				}
+				// 默认先尝试用打开.km文件
+				readAsJson(blob, function (err, data) {
+					if (err) {
+						// 如果打开.km文件失败，则用 openXmind的方式
+						openXmind(blob, true, function(err) {
+							if (err) {
+								// 如果用xmind方式失败，则用 freemind方式
+								openFreemind(blob, true);
+							}
+						});
+						return;
+					}
+					window.editor.minder.importJson(data);
+				});
 			})
 		}
 
